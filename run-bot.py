@@ -255,38 +255,27 @@ async def header(ctx, text: str):  # , ios: str = '11.1.2'):
 
 
 @bot.command(aliases=['saythis', 's'])
-async def say(ctx, *words):
-
+async def say(ctx, *, words):
     if(say_enabled):
-
-        text = ""
-        for word in words:
-            text = text + word
-        await ctx.send(text)
-
+        await ctx.send(words)
     else:
         await ctx.send("Command `say` is disabled")
 
 
 @bot.command(usage='[text]', aliases=['z'])
-async def zalgo(ctx, *words):
+async def zalgo(ctx, *, words):
     if(zalgo_enabled):
-        zalgod = ""
-        for word in words:
-            zalgod = zalgod + z.zalgo().zalgofy(word)
+        zalgod = z.zalgo().zalgofy(words)
         await ctx.send(zalgod)
     else:
         await ctx.send("Command `zalgo` is disabled")
 
 
 @bot.command(usage='[text]', aliases=['a'])
-async def ascii(ctx, *words):
+async def ascii(ctx, *, words):
     if(ascii_enabled):
-        text = ""
         f = Figlet()
-        for word in words:
-            text = text + " " + word
-        asciid = f.renderText(text)
+        asciid = f.renderText(words)
         await ctx.send("```" + asciid + "```")
     else:
         await ctx.send("Command `ascii` is disabled")
