@@ -37,7 +37,7 @@ async def on_ready():
     print('Under user - ' + bot.user.name)
     print('And ID - ' + str(bot.user.id))
     print('------\n')
-    await bot.change_presence(game=discord.Game(name='$help'))
+    await bot.change_presence(activity=discord.Game(name='$help'))
 
 
 @bot.command(aliases=['tvos'])
@@ -362,7 +362,7 @@ async def disable(ctx, cmd):
 
 @bot.command(aliases=['game'])
 async def play(ctx, *, game):
-    await bot.change_presence(game=discord.Game(name=game))
+    await bot.change_presence(activity=discord.Game(name=game))
 
 
 bot.remove_command('help')
