@@ -28,6 +28,7 @@ tweak_enabled = True
 ascii_enabled = True
 zalgo_enabled = True
 header_enabled = True
+say_enabled = False
 
 
 @bot.event
@@ -251,6 +252,20 @@ async def header(ctx, text: str):  # , ios: str = '11.1.2'):
 
     else:
         await ctx.send("Command `header` is disabled")
+
+
+@bot.command(aliases=['saythis', 's'])
+async def say(ctx, *words):
+
+    if(say_enabled):
+
+        text = ""
+        for word in words:
+            text = text + word
+        await ctx.send(text)
+
+    else:
+        await ctx.send("Command `say` is disabled")
 
 
 @bot.command(usage='[text]', aliases=['z'])
