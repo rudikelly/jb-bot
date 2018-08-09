@@ -387,6 +387,12 @@ async def docs_on_error(ctx, error):
     await ctx.send("``" + prefix + "docs [object]``")
 
 
+@header.error
+async def header_on_error(ctx, error):
+    await ctx.send("Usage:")
+    await ctx.send("``" + prefix + "header [header]``")
+
+
 @zalgo.error
 async def zalgo_on_error(ctx, error):
     await ctx.send("Usage:")
