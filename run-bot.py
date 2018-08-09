@@ -365,7 +365,7 @@ async def help(ctx):
     embed.add_field(name="$profile  or  $tvos", value="Sends the tvOS 11 beta profile in the current channel, allowing you to 1-click install it", inline=True)
     embed.add_field(name="$tweak [tweak]  or  $info [tweak]  or  $theme [theme]", value="Provides information about and a download link for a specific tweak", inline=True)
     embed.add_field(name="$docs [object]  or  $doc [data type]  etc.", value="Provides a link to requested Apple Obj-C doc, as well as a short summary", inline=True)
-    embed.add_field(name="$header [object]  or  $h [data type]  etc.", value="Provides a link to requested header file", inline=True)
+    embed.add_field(name="$header [header]  or  $h [header]", value="Provides a link to requested header file", inline=True)
     await ctx.send(embed=embed)
 
 
