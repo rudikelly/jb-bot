@@ -109,7 +109,7 @@ async def canijb(ctx, ios: str, ios2: str = ""):
         await ctx.send("Command `canijb` is disabled")
 
 
-@bot.command(aliases=['info', 'tweakinfo', 'theme'], usage='[tweak]')
+@bot.command(aliases=['tweakinfo', 'theme'], usage='[tweak]')
 async def tweak(ctx, tweak: str, tweak2: str = '', tweak3: str = '', tweak4: str = ''):
 
     if(tweak_enabled):
@@ -368,17 +368,52 @@ async def play(ctx, *, game):
 bot.remove_command('help')
 
 
-@bot.command()
+@bot.group()
 async def help(ctx):
-    ctx.message.delete()
+    if ctx.invoked_subcommand is None:
 
-    # embed containing help
+        # embed containing help
+        embed = discord.Embed(title="Jailbreak Bot Help", color=embed_color)
+        embed.add_field(name="$canijb [ios]  or  $jb [ios]", value="Check if the given iOS is jailbreak-able", inline=False)
+        embed.add_field(name="$profile  or  $tvos", value="Sends the tvOS 11 beta profile in the current channel, allowing you to 1-click install it", inline=True)
+        embed.add_field(name="$tweak [tweak]  or  $theme [theme]", value="Provides information about and a download link for a specific tweak", inline=True)
+        embed.add_field(name="$docs [object]  or  $doc [data type]  etc.", value="Provides a link to requested Apple Obj-C doc, as well as a short summary", inline=True)
+        embed.add_field(name="$header [header]  or  $h [header]", value="Provides a link to requested header file", inline=True)
+        embed.set_footer(text="Type $help [command] to get detailed info about a certain command", icon_url=bot.user.avatar_url_as())
+        await ctx.send(embed=embed)
+
+
+@help.command(aliases=['jb', 'canijailbreak'])
+async def canijb(ctx):
     embed = discord.Embed(title="Jailbreak Bot Help", color=embed_color)
-    embed.add_field(name="$canijb [ios]  or  $jb [ios]", value="Check if the given iOS is jailbreak-able", inline=False)
+    embed.add_field(name="$canijb [ios]  or  $jb [ios]", value="Check if the given iOS is jailbreak-able. Pulls data from canijailbreak.com. Sends name of the jailbreak tool and link to get it", inline=False)
+    await ctx.send(embed=embed)
+
+@help.command(aliases=['tvos'])
+async def profile(ctx):
+    embed = discord.Embed(title="Jailbreak Bot Help", color=embed_color)
     embed.add_field(name="$profile  or  $tvos", value="Sends the tvOS 11 beta profile in the current channel, allowing you to 1-click install it", inline=True)
-    embed.add_field(name="$tweak [tweak]  or  $info [tweak]  or  $theme [theme]", value="Provides information about and a download link for a specific tweak", inline=True)
-    embed.add_field(name="$docs [object]  or  $doc [data type]  etc.", value="Provides a link to requested Apple Obj-C doc, as well as a short summary", inline=True)
-    embed.add_field(name="$header [header]  or  $h [header]", value="Provides a link to requested header file", inline=True)
+    await ctx.send(embed=embed)
+
+
+@help.command()
+async def tweak(ctx):
+    embed = discord.Embed(title="Jailbreak Bot Help", color=embed_color)
+    embed.add_field(name="$tweak [tweak]  or  $theme [theme]", value="Provides information about and a download link for a specific tweak. Currently only works for defualt repos", inline=True)
+    await ctx.send(embed=embed)
+
+
+@help.command()
+async def docs(ctx):
+    embed = discord.Embed(title="Jailbreak Bot Help", color=embed_color)
+    embed.add_field(name="$docs [object]  or  $doc [data type]  etc.", value="Provides a link to requested Apple Obj-C doc, as well as a short summary. Only frameworks currently supported are: Objective-C, UIKit, WebKit, Foundation, CoreData, Kernel, CoreServices", inline=True)
+    await ctx.send(embed=embed)
+
+
+@help.command()
+async def header(ctx):
+    embed = discord.Embed(title="Jailbreak Bot Help", color=embed_color)
+    embed.add_field(name="$header [header]  or  $h [header]", value="Provides a link to requested header file. Generates a link to developer.limneos.net. Only frameworks currently supported are: SpringBoard, UIKit, WebKit, Foundation, CoreData, CoreServices", inline=True)
     await ctx.send(embed=embed)
 
 
