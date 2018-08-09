@@ -37,6 +37,7 @@ async def on_ready():
     print('Under user - ' + bot.user.name)
     print('And ID - ' + str(bot.user.id))
     print('------\n')
+    await bot.change_presence(game=discord.Game(name='$help'))
 
 
 @bot.command(aliases=['tvos'])
@@ -354,6 +355,11 @@ async def disable(ctx, cmd):
 
     else:
         await ctx.send("You don't have permission to do that")
+
+
+@bot.command()
+async def play(ctx, *, game):
+    await bot.change_presence(game=discord.Game(name=game))
 
 
 bot.remove_command('help')
