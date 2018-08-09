@@ -312,6 +312,9 @@ async def enable(ctx, cmd):
         elif(cmd == "zalgo"):
             global zalgo_enabled
             zalgo_enabled = True
+        elif(cmd == "say"):
+            global say_enabled
+            say_enabled = True
         else:
             await ctx.send("Command `" + cmd + "` not found")
             return
@@ -348,6 +351,9 @@ async def disable(ctx, cmd):
         elif(cmd == "zalgo"):
             global zalgo_enabled
             zalgo_enabled = False
+        elif(cmd == "say"):
+            global say_enabled
+            say_enabled = False
         else:
             await ctx.send("Command `" + cmd + "` not found")
             return
