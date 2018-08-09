@@ -357,7 +357,7 @@ async def disable(ctx, cmd):
         await ctx.send("You don't have permission to do that")
 
 
-@bot.command()
+@bot.command(aliases=['game'])
 async def play(ctx, *, game):
     await bot.change_presence(game=discord.Game(name=game))
 
