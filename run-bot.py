@@ -288,9 +288,6 @@ async def enable(ctx, cmd):
     # only lets bot owner run it
     if ctx.author.id == bot.owner_id:
 
-        print(bot.is_owner(ctx.message.author))
-        print(ctx.message)
-        print(ctx.message.author)
         if(cmd == "jb" or cmd == "canijb"):
             global canijb_enabled
             canijb_enabled = True
