@@ -425,6 +425,7 @@ async def help(ctx):
         embed.add_field(name="$tweak [tweak]  or  $theme [theme]", value="Provides information about and a download link for a specific tweak", inline=True)
         embed.add_field(name="$docs [object]  or  $doc [data type]  etc.", value="Provides a link to requested Apple Obj-C doc, as well as a short summary", inline=True)
         embed.add_field(name="$header [header]  or  $h [header]", value="Provides a link to requested header file", inline=True)
+        embed.add_field(name="$framework [framework]  or  $f [framework]", value="Provides a link to requested framework on developer.limneos.net", inline=True)
         embed.set_footer(text="Type $help [command] to get detailed info about a certain command", icon_url=bot.user.avatar_url_as())
         await ctx.send(embed=embed)
 
@@ -465,6 +466,13 @@ async def header(ctx):
     embed = discord.Embed(title="Jailbreak Bot Help", color=embed_color)
     embed.add_field(name="$header [header]  or  $h [header]", value="Provides a link to requested header file. Case Sensitive. Generates a link to developer.limneos.net. Only frameworks currently supported are: SpringBoard, UIKit, WebKit, Foundation, CoreData, CoreServices", inline=True)
     embed.add_field(name="Examples", value="$header SBAlertView\n$h SBPowerDownAlertView\n$h SBVolumeHUD", inline=False)
+    await ctx.send(embed=embed)
+
+@help.command(aliases=['f'])
+async def framework(ctx):
+    embed = discord.Embed(title="Jailbreak Bot Help", color=embed_color)
+    embed.add_field(name="$framework [framework]  or  $f [framework]", value="Provides a link to requested framework on developer.limneos.net. Case Sensitive.", inline=True)
+    embed.add_field(name="Examples", value="$framework SpringBoard\n$f UIKit\n$f Foundation", inline=False)
     await ctx.send(embed=embed)
 
 
