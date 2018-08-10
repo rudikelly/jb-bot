@@ -261,10 +261,11 @@ async def header(ctx, text: str, uinput0: str = '', uinput1: str = ''):  # , ios
             else:
                 url = "http://developer.limneos.net/index.php?ios=" + ios + "&framework=" + x + "&header=" + text
 
-            print(url)
-
             html = requests.get(url).text
             soup = BeautifulSoup(html, "html.parser")
+            if str(soup).strip() == "Access error.":
+                await ctx.send("Header " + text + " not found for iOS " + ios)
+                return
 
             title = soup.title.contents[0]
 
@@ -279,10 +280,14 @@ async def header(ctx, text: str, uinput0: str = '', uinput1: str = ''):  # , ios
                     return
 
             except IndexError:
-                embed = discord.Embed(title=title, url=url, color=embed_color)
-                await ctx.send(embed=embed)
-                print("Successful!")
-                return
+                if soup.findAll('div')[6].findAll('br')[0].findAll('br')[0].contents[0].strip() == "Error resolving file.":
+                    continue
+                else:
+                    embed = discord.Embed(title=title, url=url, color=embed_color)
+                    await ctx.send(embed=embed)
+                    print("Successful!")
+                    return
+
 
         await ctx.send("Couldn't find header for " + text)
 
