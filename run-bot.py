@@ -267,22 +267,29 @@ async def framework(ctx, text: str):
         ios = "11.1.2"
 
         if not text == "SpringBoard" and not text[:-10] == ".framework":
-            text = text + ".framework"
+            text_frm = text + ".framework"
+        else:
+            text_frm = text
 
-        url = "http://developer.limneos.net/index.php?ios=" + ios + "&framework=" + text
+        url = "http://developer.limneos.net/index.php?ios=" + ios + "&framework=" + text_frm
         html = requests.get(url).text
         soup = BeautifulSoup(html, "html.parser")
 
         title = soup.title.contents[0]
 
-        if(soup.findAll('div')[7].findAll('br')[1].contents[0].strip() == "Given Framework doesn't exist in my database, sorry."):
+        try:
+            if(soup.findAll('div')[7].findAll('pre')[0].contents[0].strip() == "Given Framework doesn't exist in my database, sorry."):
 
-            await ctx.send("Couldn't find framework " + text)
+                await ctx.send("Couldn't find framework " + text)
+                print("Failed")
+            else:
+                embed = discord.Embed(title=title, url=url, color=embed_color)
+                await ctx.send(embed=embed)
+                print("Successful!")
+                return
 
-        else:
+        except IndexError:
             embed = discord.Embed(title=title, url=url, color=embed_color)
-            embed.set_author
-            # embed.add_field(name="$canijb [ios]  or  $jb [ios]", value="Check if the given iOS is jailbreak-able", inline=False)
             await ctx.send(embed=embed)
             print("Successful!")
             return
