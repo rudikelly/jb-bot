@@ -8,6 +8,7 @@ from packaging import version
 from bs4 import BeautifulSoup
 from zalgo_text import zalgo as z
 from pyfiglet import Figlet
+import time
 
 # get token from ext file for security
 with open('token.txt', 'r') as f:
@@ -363,6 +364,16 @@ async def disable(ctx, cmd):
 @bot.command(aliases=['game'])
 async def play(ctx, *, game):
     await bot.change_presence(activity=discord.Game(name=game))
+
+
+@bot.command()
+async def ping(ctx):
+    t1 = time.perf_counter()
+    await ctx.trigger_typing()
+    t2 = time.perf_counter()
+    embed = discord.Embed(title="Response time: {}ms".format(round((t2 - t1) * 1000)), color=embed_color)
+    embed.set_author(name="Pong!")
+    await ctx.send(embed=embed)
 
 
 bot.remove_command('help')
