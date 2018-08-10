@@ -185,7 +185,7 @@ async def docs(ctx, doc: str = ''):
         done = False
 
         # generates url to relevent doc and retrieves summary
-        pages = ["objectivec", "uikit", "webkit", "foundation", "coredata", "kernel", "coreservices"]
+        pages = ["objectivec", "uikit", "webkit", "foundation", "coregraphics", "coredata", "kernel", "coreservices"]
         for x in pages:
             url = "https://developer.apple.com/documentation/" + x + "/" + doc + "?language=objc"
             html = requests.get(url).text
