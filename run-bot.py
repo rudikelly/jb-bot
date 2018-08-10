@@ -256,7 +256,7 @@ async def header(ctx, text: str):  # , ios: str = '11.1.2'):
         await ctx.send("Command `header` is disabled")
 
 
-@bot.command()
+@bot.command(aliases=['f'])
 async def framework(ctx, text: str):
     if(framework_enabled):
 
