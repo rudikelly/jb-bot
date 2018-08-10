@@ -349,6 +349,9 @@ async def enable(ctx, cmd):
         elif(cmd == "header"):
             global header_enabled
             header_enabled = True
+        elif(cmd == "framework"):
+            global framework_enabled
+            framework_enabled = True
         elif(cmd == "zalgo"):
             global zalgo_enabled
             zalgo_enabled = True
@@ -388,6 +391,9 @@ async def disable(ctx, cmd):
         elif(cmd == "header"):
             global header_enabled
             header_enabled = False
+        elif(cmd == "framework"):
+            global framework_enabled
+            framework_enabled = True
         elif(cmd == "zalgo"):
             global zalgo_enabled
             zalgo_enabled = False
