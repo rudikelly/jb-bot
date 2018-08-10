@@ -3,3 +3,4 @@ token.txt
 id.txt
 profile.mobileconfig
 icon.png
+__pycache__/
