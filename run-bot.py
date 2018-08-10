@@ -29,6 +29,7 @@ tweak_enabled = True
 ascii_enabled = True
 zalgo_enabled = True
 header_enabled = True
+framework_enabled = True
 say_enabled = False
 
 
@@ -253,6 +254,41 @@ async def header(ctx, text: str):  # , ios: str = '11.1.2'):
 
     else:
         await ctx.send("Command `header` is disabled")
+
+
+@bot.command()
+async def framework(ctx, text: str):
+    if(framework_enabled):
+
+        text = text.replace(' ', '').strip()
+
+        # logs command issued
+        print("------\n" + prefix + "framework " + text)
+        ios = "11.1.2"
+
+        if not text == "SpringBoard" and not text[:-10] == ".framework":
+            text = text + ".framework"
+
+        url = "http://developer.limneos.net/index.php?ios=" + ios + "&framework=" + text
+        html = requests.get(url).text
+        soup = BeautifulSoup(html, "html.parser")
+
+        title = soup.title.contents[0]
+
+        if(soup.findAll('div')[7].findAll('br')[1].contents[0].strip() == "Given Framework doesn't exist in my database, sorry."):
+
+            await ctx.send("Couldn't find framework " + text)
+
+        else:
+            embed = discord.Embed(title=title, url=url, color=embed_color)
+            embed.set_author
+            # embed.add_field(name="$canijb [ios]  or  $jb [ios]", value="Check if the given iOS is jailbreak-able", inline=False)
+            await ctx.send(embed=embed)
+            print("Successful!")
+            return
+
+    else:
+        await ctx.send("Command `framework` is disabled")
 
 
 @bot.command(aliases=['saythis', 's'])
