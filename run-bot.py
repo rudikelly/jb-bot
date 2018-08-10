@@ -429,7 +429,7 @@ async def docs(ctx):
 async def header(ctx):
     embed = discord.Embed(title="Jailbreak Bot Help", color=embed_color)
     embed.add_field(name="$header [header]  or  $h [header]", value="Provides a link to requested header file. Case Sensitive. Generates a link to developer.limneos.net. Only frameworks currently supported are: SpringBoard, UIKit, WebKit, Foundation, CoreData, CoreServices", inline=True)
-    embed.add_field(name="Examples", value="$header SBAlertView\n$h SBPowerDownAlertView\n$h $h SBVolumeHUD", inline=False)
+    embed.add_field(name="Examples", value="$header SBAlertView\n$h SBPowerDownAlertView\n$h SBVolumeHUD", inline=False)
     await ctx.send(embed=embed)
 
 
