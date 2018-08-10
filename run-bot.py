@@ -244,7 +244,6 @@ async def header(ctx, text: str):  # , ios: str = '11.1.2'):
 
             else:
                 embed = discord.Embed(title=title, url=url, color=embed_color)
-                embed.set_author
                 # embed.add_field(name="$canijb [ios]  or  $jb [ios]", value="Check if the given iOS is jailbreak-able", inline=False)
                 await ctx.send(embed=embed)
                 print("Successful!")
