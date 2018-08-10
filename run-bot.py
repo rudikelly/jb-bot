@@ -419,8 +419,8 @@ async def ping(ctx):
     t1 = time.perf_counter()
     await ctx.trigger_typing()
     t2 = time.perf_counter()
-    embed = discord.Embed(title="Response time: {}ms".format(round((t2 - t1) * 1000)), color=embed_color)
-    embed.set_author(name="Pong!")
+    embed = discord.Embed(color=embed_color)
+    embed.add_field(name="Pong! Response time: ", value="{}ms".format(round((t2 - t1) * 1000)), inline=False)
     await ctx.send(embed=embed)
 
 
