@@ -219,7 +219,7 @@ async def docs(ctx, doc: str = ''):
 
 
 @bot.command(usage='[object]', aliases=['h', 'headers'])
-async def header(ctx, text: str):  # , ios: str = '11.1.2'):
+async def header(ctx, text: str, uinput0: str = '', uinput1: str = ''):  # , ios: str = '11.1.2'):
     if(header_enabled):
 
         text = text.replace(' ', '').strip()
@@ -232,20 +232,54 @@ async def header(ctx, text: str):  # , ios: str = '11.1.2'):
         if not text[-2:] == ".h":
             text = text + ".h"
 
+        framework = ""
+
+        if not uinput0 == '':
+            try:
+                int(uinput0.replace('.', ''))
+                ios = str(uinput0)
+            except ValueError:
+                framework = str(uinput0)
+
+            if not uinput1 == '':
+                try:
+                    int(uinput1.replace('.', ''))
+                    ios = str(uinput1)
+                except ValueError:
+                    framework = str(uinput1)
+
+        if not framework == "" and not framework[-10:] == ".framework":
+            framework = framework + ".framework"
+
         pages = ["SpringBoard", "UIKit.framework", "WebKit.framework", "Foundation.framework", "CoreData.framework", "CoreServices.framework"]
         for x in pages:
-            url = "http://developer.limneos.net/index.php?ios=" + ios + "&framework=" + x + "&header=" + text
+
+            if not framework == "":
+
+                url = "http://developer.limneos.net/index.php?ios=" + ios + "&framework=" + framework + "&header=" + text
+
+            else:
+                url = "http://developer.limneos.net/index.php?ios=" + ios + "&framework=" + x + "&header=" + text
+
+            print(url)
+
             html = requests.get(url).text
             soup = BeautifulSoup(html, "html.parser")
 
             title = soup.title.contents[0]
 
-            if(soup.findAll('div')[7].findAll('br')[1].contents[0].strip() == "Error resolving file."):
-                continue
+            try:
+                if(soup.findAll('div')[7].findAll('br')[1].contents[0].strip() == "Error resolving file."):
+                    continue
 
-            else:
+                else:
+                    embed = discord.Embed(title=title, url=url, color=embed_color)
+                    await ctx.send(embed=embed)
+                    print("Successful!")
+                    return
+
+            except IndexError:
                 embed = discord.Embed(title=title, url=url, color=embed_color)
-                # embed.add_field(name="$canijb [ios]  or  $jb [ios]", value="Check if the given iOS is jailbreak-able", inline=False)
                 await ctx.send(embed=embed)
                 print("Successful!")
                 return
