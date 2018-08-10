@@ -478,8 +478,8 @@ async def help(ctx):
         embed.add_field(name="$profile  or  $tvos", value="Sends the tvOS 11 beta profile in the current channel, allowing you to 1-click install it", inline=True)
         embed.add_field(name="$tweak [tweak]  or  $theme [theme]", value="Provides information about and a download link for a specific tweak", inline=True)
         embed.add_field(name="$docs [object]  or  $doc [data type]  etc.", value="Provides a link to requested Apple Obj-C doc, as well as a short summary", inline=True)
-        embed.add_field(name="$header [header]  or  $h [header]", value="Provides a link to requested header file", inline=True)
-        embed.add_field(name="$framework [framework]  or  $f [framework]", value="Provides a link to requested framework on developer.limneos.net", inline=True)
+        embed.add_field(name="$header [header] <ios> <framework>  or  $h [header] <framework> <ios>", value="Provides a link to requested header file", inline=True)
+        embed.add_field(name="$framework [framework]  or  $f [framework]", value="Provides a link to requested framework", inline=True)
         embed.set_footer(text="Type $help [command] to get detailed info about a certain command", icon_url=bot.user.avatar_url_as())
         await ctx.send(embed=embed)
 
@@ -518,8 +518,8 @@ async def docs(ctx):
 @help.command(aliases=['h'])
 async def header(ctx):
     embed = discord.Embed(title="Jailbreak Bot Help", color=embed_color)
-    embed.add_field(name="$header [header]  or  $h [header]", value="Provides a link to requested header file. Case Sensitive. Generates a link to developer.limneos.net. Only frameworks currently supported are: SpringBoard, UIKit, WebKit, Foundation, CoreData, CoreServices", inline=True)
-    embed.add_field(name="Examples", value="$header SBAlertView\n$h SBPowerDownAlertView\n$h SBVolumeHUD", inline=False)
+    embed.add_field(name="$header [header] <ios> <framework>  or  $h [header] <framework> <ios>", value="Provides a link to requested header file. Case Sensitive. Generates a link to developer.limneos.net. Only frameworks currently supported are: SpringBoard, UIKit, WebKit, Foundation, CoreData, CoreServices. However it will check any frameworks provided explicitly", inline=True)
+    embed.add_field(name="Examples", value="$header SBAlertView\n$h SBPowerDownAlertView 10.2\n$h CXStartCallAction.h CallKit 10.1.1", inline=False)
     await ctx.send(embed=embed)
 
 @help.command(aliases=['f'])
