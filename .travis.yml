@@ -11,3 +11,6 @@ install:
 # Checks for syntax errors
 script:
   - python -m py_compile run-bot.py
+
+notifications:
+  email: false
