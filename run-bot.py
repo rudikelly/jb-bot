@@ -397,34 +397,39 @@ async def help(ctx):
 @help.command(aliases=['jb', 'canijailbreak'])
 async def canijb(ctx):
     embed = discord.Embed(title="Jailbreak Bot Help", color=embed_color)
-    embed.add_field(name="$canijb [ios]  or  $jb [ios]", value="Check if the given iOS is jailbreak-able. Pulls data from canijailbreak.com. Sends name of the jailbreak tool and link to get it", inline=False)
+    embed.add_field(name="$canijb [ios]  or  $jb [ios]", value="Check if the given iOS is jailbreak-able. Works for every ios except 5, not sure . Sends name of the jailbreak tool and link to get it", inline=False)
+    embed.add_field(name="Examples", value="$canijb 11.0\n$canijb ios 6.1.3\n$jb 7.1.2\n$jb ios 5.1", inline=False)
     await ctx.send(embed=embed)
 
 @help.command(aliases=['tvos'])
 async def profile(ctx):
     embed = discord.Embed(title="Jailbreak Bot Help", color=embed_color)
     embed.add_field(name="$profile  or  $tvos", value="Sends the tvOS 11 beta profile in the current channel, allowing you to 1-click install it", inline=True)
+    embed.add_field(name="Examples", value="$profile\n$tvos", inline=False)
     await ctx.send(embed=embed)
 
 
-@help.command()
+@help.command(aliases=['theme'])
 async def tweak(ctx):
     embed = discord.Embed(title="Jailbreak Bot Help", color=embed_color)
     embed.add_field(name="$tweak [tweak]  or  $theme [theme]", value="Provides information about and a download link for a specific tweak. Currently only works for defualt repos", inline=True)
+    embed.add_field(name="Examples", value="$tweak icleaner\n$tweak classicfolders 2\n$theme indigo", inline=False)
     await ctx.send(embed=embed)
 
 
-@help.command()
+@help.command(aliases=['doc'])
 async def docs(ctx):
     embed = discord.Embed(title="Jailbreak Bot Help", color=embed_color)
-    embed.add_field(name="$docs [object]  or  $doc [data type]  etc.", value="Provides a link to requested Apple Obj-C doc, as well as a short summary. Only frameworks currently supported are: Objective-C, UIKit, WebKit, Foundation, CoreData, Kernel, CoreServices", inline=True)
+    embed.add_field(name="$docs [object]  or  $doc [data type]  etc.", value="Provides a link to requested Apple Obj-C doc, as well as a short summary. Only frameworks currently supported are: Objective-C, UIKit, WebKit, Foundation, CoreGraphics, CoreData, Kernel, CoreServices", inline=True)
+    embed.add_field(name="Examples", value="$docs NSObject\n$doc UIViewController\n$docs CGFloat", inline=False)
     await ctx.send(embed=embed)
 
 
-@help.command()
+@help.command(aliases=['h'])
 async def header(ctx):
     embed = discord.Embed(title="Jailbreak Bot Help", color=embed_color)
-    embed.add_field(name="$header [header]  or  $h [header]", value="Provides a link to requested header file. Generates a link to developer.limneos.net. Only frameworks currently supported are: SpringBoard, UIKit, WebKit, Foundation, CoreData, CoreServices", inline=True)
+    embed.add_field(name="$header [header]  or  $h [header]", value="Provides a link to requested header file. Case Sensitive. Generates a link to developer.limneos.net. Only frameworks currently supported are: SpringBoard, UIKit, WebKit, Foundation, CoreData, CoreServices", inline=True)
+    embed.add_field(name="Examples", value="$header SBAlertView\n$h SBPowerDownAlertView\n$h $h SBVolumeHUD", inline=False)
     await ctx.send(embed=embed)
 
 
