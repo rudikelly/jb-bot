@@ -1,0 +1,12 @@
+language: python
+python:
+  - "3.5"
+  - "3.6"
+
+# Checks that requirements.txt is up to date
+install:
+  - pip install requirements.txt
+
+# Checks for syntax errors
+script:
+  - python -m py_compile run-bot.py
