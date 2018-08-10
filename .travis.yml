@@ -5,7 +5,7 @@ python:
 
 # Checks that requirements.txt is up to date
 install:
-  - pip install requirements.txt
+  - pip install -r requirements.txt
 
 # Checks for syntax errors
 script:
