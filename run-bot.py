@@ -265,6 +265,7 @@ async def header(ctx, text: str, uinput0: str = '', uinput1: str = ''):  # , ios
             soup = BeautifulSoup(html, "html.parser")
             if str(soup).strip() == "Access error.":
                 await ctx.send("Header " + text + " not found for iOS " + ios)
+                print("Failed")
                 return
 
             title = soup.title.contents[0]
@@ -290,6 +291,7 @@ async def header(ctx, text: str, uinput0: str = '', uinput1: str = ''):  # , ios
 
 
         await ctx.send("Couldn't find header for " + text)
+        print("Failed")
 
     else:
         await ctx.send("Command `header` is disabled")
