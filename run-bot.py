@@ -3,7 +3,7 @@ import asyncio
 from discord.ext import commands
 
 import json
-import requests
+import aiohttp
 from packaging import version
 from bs4 import BeautifulSoup
 from zalgo_text import zalgo as z
@@ -67,7 +67,7 @@ async def canijb(ctx, ios: str, ios2: str = ""):
         print("------\n" + prefix + "canijb " + ios)
 
         # fetches json api, loads into list
-        r = requests.get("https://canijailbreak.com/jailbreaks.json")
+        r = aiohttp.get("http://canijailbreak.com/jailbreaks.json")
         t = r.text
         data = json.loads(t)
         jailbreaks = data["jailbreaks"]
@@ -123,7 +123,7 @@ async def tweak(ctx, tweak: str, tweak2: str = '', tweak3: str = '', tweak4: str
         print("------\n" + prefix + "tweak " + tweak)
 
         # grabs data about tweak from sauriks api
-        r = requests.get("https://cydia.saurik.com/api/macciti?query=" + tweak.replace(' ', '').lower().strip())
+        r = aiohttp.get("https://cydia.saurik.com/api/macciti?query=" + tweak.replace(' ', '').lower().strip())
         t = r.text
         data = json.loads(t)
 
@@ -142,7 +142,7 @@ async def tweak(ctx, tweak: str, tweak2: str = '', tweak3: str = '', tweak4: str
                 icon_url = "http://cydia.saurik.com/icon@2x/" + bundleid + ".png"
 
                 # gets package price
-                r = requests.get("http://cydia.saurik.com/api/ibbignerd?query=" + bundleid).text
+                r = aiohttp.get("http://cydia.saurik.com/api/ibbignerd?query=" + bundleid).text
                 pr = json.loads(r)
                 if pr is None:
                     price = "Free"
@@ -150,7 +150,7 @@ async def tweak(ctx, tweak: str, tweak2: str = '', tweak3: str = '', tweak4: str
                     price = pr["msrp"]
 
                 # grabs the repo tweak is hosted on (stolen from https://github.com/hizinfiz/TweakInfoBot/)
-                html = requests.get(url).text
+                html = aiohttp.get(url).text
                 soup = BeautifulSoup(html, "html.parser")
                 repo = soup.find('span', {'class': 'source-name'}).contents[0]
                 if repo == 'ModMyi.com':
@@ -189,7 +189,7 @@ async def docs(ctx, doc: str = ''):
         pages = ["objectivec", "uikit", "webkit", "foundation", "coregraphics", "coredata", "kernel", "coreservices"]
         for x in pages:
             url = "https://developer.apple.com/documentation/" + x + "/" + doc + "?language=objc"
-            html = requests.get(url).text
+            html = aiohttp.get(url).text
             soup = BeautifulSoup(html, "html.parser")
 
             try:
@@ -261,7 +261,7 @@ async def header(ctx, text: str, uinput0: str = '', uinput1: str = ''):  # , ios
             else:
                 url = "http://developer.limneos.net/index.php?ios=" + ios + "&framework=" + x + "&header=" + text
 
-            html = requests.get(url).text
+            html = aiohttp.get(url).text
             soup = BeautifulSoup(html, "html.parser")
             if str(soup).strip() == "Access error.":
                 await ctx.send("Header " + text + " not found for iOS " + ios)
@@ -313,7 +313,7 @@ async def framework(ctx, text: str):
             text_frm = text
 
         url = "http://developer.limneos.net/index.php?ios=" + ios + "&framework=" + text_frm
-        html = requests.get(url).text
+        html = aiohttp.get(url).text
         soup = BeautifulSoup(html, "html.parser")
 
         title = soup.title.contents[0]
