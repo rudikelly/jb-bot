@@ -14,7 +14,7 @@ import time
 with open('config.json', 'r') as f:
     config = json.load(f)
     token = config["token"]
-    my_id = config["owner_id"]
+    my_id = int(config["owner_id"])
 
 prefix = '$'
 embed_color = discord.Colour.from_rgb(150, 200, 250)
@@ -38,6 +38,7 @@ async def on_ready():
     print('And ID - ' + str(bot.user.id))
     print('------\n')
     await bot.change_presence(activity=discord.Game(name='$help'))
+    print(bot.owner_id)
 
 
 @bot.command(aliases=['tvos'])
