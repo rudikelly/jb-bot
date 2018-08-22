@@ -4,19 +4,14 @@ verify_ssl = true
 name = "pypi"
 
 [dev-packages]
-pylint = "*"
-pycodestyle = "*"
-pydocstyle = "*"
 
 [packages]
-discord = "*"
-asyncio = "*"
-pyfiglet = "*"
+aiohttp = "*"
+"discord.py" = {git = "https://github.com/Rapptz/discord.py.git", ref = "rewrite"}
+packaging = "*"
 "bs4" = "*"
 zalgo-text = "*"
-cchardet = "*"
-aiodns = "*"
-packaging = "*"
+pyfiglet = "*"
 
 [requires]
-python_version = "3.6"
+python_version = "3.6.4"
