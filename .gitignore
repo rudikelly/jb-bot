@@ -1,6 +1,4 @@
 .DS_Store
-token.txt
-id.txt
 profile.mobileconfig
-icon.png
 __pycache__/
+config.json

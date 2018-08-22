@@ -10,13 +10,15 @@ from zalgo_text import zalgo as z
 from pyfiglet import Figlet
 import time
 
-# get token from ext file for security
-with open('token.txt', 'r') as f:
-    token = f.read().strip()
+# get token and id from ext file for security
+with open('config.json', 'r') as f:
+    config = json.load(f)
+    token = config["token"]
+    my_id = config["owner_id"]
+    print(config)
+    print(token)
+    print(my_id)
 
-# get id from ext file for security
-with open('id.txt', 'r') as f:
-    my_id = int(f.read().strip())
 
 prefix = '$'
 embed_color = discord.Colour.from_rgb(150, 200, 250)
