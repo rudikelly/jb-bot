@@ -1,0 +1,21 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[dev-packages]
+pylint = "*"
+pycodestyle = "*"
+pydocstyle = "*"
+
+[packages]
+discord = "*"
+asyncio = "*"
+pyfiglet = "*"
+"bs4" = "*"
+zalgo-text = "*"
+cchardet = "*"
+aiodns = "*"
+
+[requires]
+python_version = "3.6"

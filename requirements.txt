@@ -1,7 +1,0 @@
-discord
-requests
-asyncio
-packaging
-pyfiglet
-bs4
-zalgo_text
