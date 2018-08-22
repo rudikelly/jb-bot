@@ -16,6 +16,7 @@ pyfiglet = "*"
 zalgo-text = "*"
 cchardet = "*"
 aiodns = "*"
+packaging = "*"
 
 [requires]
 python_version = "3.6"
