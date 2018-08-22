@@ -287,7 +287,6 @@ async def header(ctx, text: str, uinput0: str = '', uinput1: str = ''):  # , ios
                     print("Successful!")
                     return
 
-
         await ctx.send("Couldn't find header for " + text)
         print("Failed")
 
@@ -489,6 +488,7 @@ async def canijb(ctx):
     embed.add_field(name="Examples", value="$canijb 11.0\n$canijb ios 6.1.3\n$jb 7.1.2\n$jb ios 5.1", inline=False)
     await ctx.send(embed=embed)
 
+
 @help.command(aliases=['tvos'])
 async def profile(ctx):
     embed = discord.Embed(title="Jailbreak Bot Help", color=embed_color)
@@ -519,6 +519,7 @@ async def header(ctx):
     embed.add_field(name="$header [header] <ios> <framework>  or  $h [header] <framework> <ios>", value="Provides a link to requested header file. Case Sensitive. Generates a link to developer.limneos.net. Only frameworks currently supported are: SpringBoard, UIKit, WebKit, Foundation, CoreData, CoreServices. However it will check any frameworks provided explicitly", inline=True)
     embed.add_field(name="Examples", value="$header SBAlertView\n$h SBPowerDownAlertView 10.2\n$h CXStartCallAction.h CallKit 10.1.1", inline=False)
     await ctx.send(embed=embed)
+
 
 @help.command(aliases=['f'])
 async def framework(ctx):
