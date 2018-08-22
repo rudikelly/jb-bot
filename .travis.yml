@@ -4,13 +4,16 @@ python:
   - "3.5"
   - "3.6"
 
-# Checks that requirements.txt is up to date
+# Checks that Pipfile is up to date
 install:
-  - pip install -r requirements.txt
+  - pip install pipenv
+  - pipenv install --dev
 
-# Checks for syntax errors
+# Lints
 script:
-  - python -m py_compile run-bot.py
+  - python -m py_compile jb-bot.py
+  - pycodestyle --ignore=E501 jb-bot.py
+  - pydocstyle jb-bot.py
 
 notifications:
   email: false
