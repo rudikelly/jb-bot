@@ -15,10 +15,6 @@ with open('config.json', 'r') as f:
     config = json.load(f)
     token = config["token"]
     my_id = config["owner_id"]
-    print(config)
-    print(token)
-    print(my_id)
-
 
 prefix = '$'
 embed_color = discord.Colour.from_rgb(150, 200, 250)
