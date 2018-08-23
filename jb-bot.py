@@ -548,7 +548,11 @@ async def help(ctx):
         embed.add_field(name="$framework [framework]  or  $f [framework]", value="Provides a link to requested framework", inline=True)
         embed.add_field(name="$xkcd random  or  $xkcd latest  or  $xkcd [number]", value="Sends the requested xkcd comic in the current channel. Defaults to random", inline=True)
         embed.set_footer(text="Type $help [command] to get detailed info about a certain command", icon_url=bot.user.avatar_url_as())
-        await ctx.send(embed=embed)
+        msg = await ctx.send(embed=embed)
+
+        await msg.add_reaction(u"\u2B05")
+        await msg.add_reaction(u"\u27A1")
+
 
 
 @help.command(aliases=['jb', 'canijailbreak'])
