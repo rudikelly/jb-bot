@@ -182,7 +182,7 @@ async def tweak(ctx, tweak: str, tweak2: str = '', tweak3: str = '', tweak4: str
 
 
 @bot.command(aliases=['doc'], usage='[doc]')
-async def docs(ctx, doc: str = ''):
+async def docs(ctx, doc: str = '', framework: str = ''):
 
     if(docs_enabled):
 
@@ -192,11 +192,8 @@ async def docs(ctx, doc: str = ''):
         print("------\n" + prefix + "docs " + doc)
         done = False
 
-        # generates url to relevent doc and retrieves summary
-        pages = ["objectivec", "uikit", "webkit", "foundation", "coregraphics", "coredata", "kernel", "coreservices"]
-        for x in pages:
-            url = "https://developer.apple.com/documentation/" + x + "/" + doc + "?language=objc"
-
+        if framework != '':
+            url = "https://developer.apple.com/documentation/" + framework + "/" + doc + "?language=objc"
             async with aiohttp.ClientSession() as session:
                 async with session.get(url) as r:
                     html = await r.text()
@@ -206,23 +203,42 @@ async def docs(ctx, doc: str = ''):
                         summary = soup.find('p').contents[0]
                         done = True
                         print("Success!")
-                        break
                     except AttributeError:
-                        continue
+                        done = False
 
-            if done:
+        else:
 
-                # goes to main objc doc page if nothing specified
-                if(doc == ''):
-                    doc = "Objective-C"
+            # generates url to relevent doc and retrieves summary
+            pages = ["objectivec", "uikit", "webkit", "foundation", "coregraphics", "coredata", "kernel", "coreservices"]
+            for x in pages:
+                url = "https://developer.apple.com/documentation/" + x + "/" + doc + "?language=objc"
 
-                # constructs embed containing url and summary
-                embed = discord.Embed(title="Docs for " + doc, url=url, color=embed_color)
-                embed.add_field(name="Summary", value=summary, inline=False)
-                await ctx.send(embed=embed)
-            else:
-                print("Failed")
-                await ctx.send("Unable to find doc for " + doc)
+                async with aiohttp.ClientSession() as session:
+                    async with session.get(url) as r:
+                        html = await r.text()
+                        soup = BeautifulSoup(html, "html.parser")
+
+                        try:
+                            summary = soup.find('p').contents[0]
+                            done = True
+                            print("Success!")
+                            break
+                        except AttributeError:
+                            continue
+
+        if done:
+
+            # goes to main objc doc page if nothing specified
+            if(doc == ''):
+                doc = "Objective-C"
+
+            # constructs embed containing url and summary
+            embed = discord.Embed(title="Docs for " + doc, url=url, color=embed_color)
+            embed.add_field(name="Summary", value=summary, inline=False)
+            await ctx.send(embed=embed)
+        else:
+            print("Failed")
+            await ctx.send("Unable to find doc for " + doc)
 
     else:
         await ctx.send("Command `docs` is disabled")
