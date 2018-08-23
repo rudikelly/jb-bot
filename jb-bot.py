@@ -9,6 +9,7 @@ from bs4 import BeautifulSoup
 from zalgo_text import zalgo
 from pyfiglet import Figlet
 import time
+import random
 
 # get token and id from ext file for security
 with open('config.json', 'r') as f:
@@ -29,6 +30,7 @@ zalgo_enabled = True
 header_enabled = True
 framework_enabled = True
 say_enabled = False
+xkcd_enabled = True
 
 
 @bot.event
@@ -374,6 +376,35 @@ async def framework(ctx, text: str):
         await ctx.send("Command `framework` is disabled")
 
 
+@bot.command()
+async def xkcd(ctx, arg: str = ''):
+    if(xkcd_enabled):
+        async with aiohttp.ClientSession() as session:
+            async with session.get("https://xkcd.com/info.0.json") as r:
+                latest = json.loads(await r.text())
+                total = latest["num"]
+
+            try:
+                num = int(arg)
+            except(ValueError):
+                if arg.lower() == "random" or arg == '':
+                    num = random.randint(1, total)
+                elif arg.lower() == "latest":
+                    num = total
+                else:
+                    await ctx.send("`xkcd`: Unknown option `" + arg + "`")
+                    return
+
+
+            async with session.get("https://xkcd.com/" + str(num) + "/info.0.json") as r:
+                comic = json.loads(await r.text())
+                title = comic["safe_title"]
+                link = comic["img"]
+            embed = discord.Embed(title="xkcd " + str(num) + ": " + title, url="https://xkcd.com/" + str(num), color=embed_color)
+            embed.set_image(url=link)
+            await ctx.send(embed=embed)
+
+
 @bot.command(aliases=['saythis', 's'])
 async def say(ctx, *, words):
     if(say_enabled):
@@ -515,6 +546,7 @@ async def help(ctx):
         embed.add_field(name="$docs [object]  or  $doc [data type]  etc.", value="Provides a link to requested Apple Obj-C doc, as well as a short summary", inline=True)
         embed.add_field(name="$header [header] <ios> <framework>  or  $h [header] <framework> <ios>", value="Provides a link to requested header file", inline=True)
         embed.add_field(name="$framework [framework]  or  $f [framework]", value="Provides a link to requested framework", inline=True)
+        embed.add_field(name="$xkcd random  or  $xkcd latest  or  $xkcd [number]", value="Sends the requested xkcd comic in the current channel. Defaults to random", inline=True)
         embed.set_footer(text="Type $help [command] to get detailed info about a certain command", icon_url=bot.user.avatar_url_as())
         await ctx.send(embed=embed)
 
@@ -566,6 +598,13 @@ async def framework(ctx):
     embed.add_field(name="Examples", value="$framework SpringBoard\n$f UIKit\n$f Foundation", inline=False)
     await ctx.send(embed=embed)
 
+@help.command()
+async def xkcd(ctx):
+    embed = discord.Embed(title="Jailbreak Bot Help", color=embed_color)
+    embed.add_field(name="$xkcd random  or  $xkcd latest  or  $xkcd [number]", value="Sends the requested xkcd comic in the current channel. Defaults to random", inline=True)
+    embed.add_field(name="Examples", value="$xkcd latest\n$xkcd 678\n$xkcd", inline=False)
+    await ctx.send(embed=embed)
+
 
 @canijb.error
 async def canijb_on_error(ctx, error):
@@ -601,6 +640,12 @@ async def zalgo_on_error(ctx, error):
 async def ascii_on_error(ctx, error):
     await ctx.send("Usage:")
     await ctx.send("``" + prefix + "ascii [text]``")
+
+
+@xkcd.error
+async def ascii_on_error(ctx, error):
+    await ctx.send("Usage:")
+    await ctx.send("``" + prefix + "xkcd [number]``")
 
 
 bot.run(token)
