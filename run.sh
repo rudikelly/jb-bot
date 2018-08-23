@@ -12,6 +12,7 @@ update() {
   elif [ $LOCAL = $BASE ]; then
     echo "Updating bot..."
     git fetch
+    git pull
   fi
 }
 
