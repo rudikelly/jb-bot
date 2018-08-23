@@ -36,7 +36,7 @@ async def on_ready():
     print('Successfully connected!')
     print('As user - ' + bot.user.name)
     print('And ID - ' + str(bot.user.id))
-    print('Owners id - ' + bot.owner_id)
+    print('Owners id - ' + str(bot.owner_id))
     print('------\n')
     await bot.change_presence(activity=discord.Game(name='$help'))
     print(bot.owner_id)
@@ -46,7 +46,7 @@ async def on_ready():
 async def profile(ctx):
 
     if(profile_enabled):
-        ctx.message.delete()
+
         await ctx.send(ctx.message.author.mention + " Here you go:", file=discord.File('profile.mobileconfig'))
     else:
         await ctx.send("Command `profile` is disabled")
@@ -66,45 +66,46 @@ async def canijb(ctx, ios: str, ios2: str = ""):
         print("------\n" + prefix + "canijb " + ios)
 
         # fetches json api, loads into list
-        r = aiohttp.get("http://canijailbreak.com/jailbreaks.json")
-        t = r.text
-        data = json.loads(t)
-        jailbreaks = data["jailbreaks"]
+        async with aiohttp.ClientSession() as session:
+            async with session.get("http://canijailbreak.com/jailbreaks.json") as r:
+                t = await r.text()
+                data = json.loads(t)
+                jailbreaks = data["jailbreaks"]
 
-        jailbroken = False
-        done = False
+                jailbroken = False
+                done = False
 
-        for x in range(len(jailbreaks)):
+                for x in range(len(jailbreaks)):
 
-            # iterates through the list until it finds data for matching version
-            if (version.parse(str(jailbreaks[x]["ios"]["start"])) <= version.parse(ios)) and (version.parse(str(jailbreaks[x]["ios"]["end"])) >= version.parse(ios)):
+                    # iterates through the list until it finds data for matching version
+                    if (version.parse(str(jailbreaks[x]["ios"]["start"])) <= version.parse(ios)) and (version.parse(str(jailbreaks[x]["ios"]["end"])) >= version.parse(ios)):
 
-                # checks if it can be jailbroken
-                jailbroken = jailbreaks[x]["jailbroken"]
-                if (jailbroken):
-                    done = True
+                        # checks if it can be jailbroken
+                        jailbroken = jailbreaks[x]["jailbroken"]
+                        if (jailbroken):
+                            done = True
 
-                    # grabs name of the tool and the url from the api
-                    url = jailbreaks[x]["url"]
-                    name = jailbreaks[x]["name"]
+                            # grabs name of the tool and the url from the api
+                            url = jailbreaks[x]["url"]
+                            name = jailbreaks[x]["name"]
 
-                    # helpful message containing tool name and url
-                    embed = discord.Embed(title="iOS " + ios + " can be jailbroken!", description="", color=embed_color, url="https://canijailbreak.com/")
-                    embed.add_field(name="Use the tool " + name + " which you can get at:", value=url, inline=False)
-                    # embed.set_footer(icon_url=ctx.message.author.avatar_url_as(), text="Requested by " + str(ctx.message.author))
-                    await ctx.send(embed=embed)
-                    print("Successful")
-                    break
-                else:
-                    await ctx.send("iOS " + ios + " can't be jailbroken!")
-                    print("Successful")
-                    done = True
-                    break
-            else:
-                continue
-        if (not jailbroken and not done):
-            await ctx.send("Couldn't find data for iOS " + ios)
-            print("Failed")
+                            # helpful message containing tool name and url
+                            embed = discord.Embed(title="iOS " + ios + " can be jailbroken!", description="", color=embed_color, url="https://canijailbreak.com/")
+                            embed.add_field(name="Use the tool " + name + " which you can get at:", value=url, inline=False)
+                            # embed.set_footer(icon_url=ctx.message.author.avatar_url_as(), text="Requested by " + str(ctx.message.author))
+                            await ctx.send(embed=embed)
+                            print("Successful")
+                            break
+                        else:
+                            await ctx.send("iOS " + ios + " can't be jailbroken!")
+                            print("Successful")
+                            done = True
+                            break
+                    else:
+                        continue
+                if (not jailbroken and not done):
+                    await ctx.send("Couldn't find data for iOS " + ios)
+                    print("Failed")
 
     else:
         await ctx.send("Command `canijb` is disabled")
@@ -124,54 +125,57 @@ async def tweak(ctx, tweak: str, tweak2: str = '', tweak3: str = '', tweak4: str
         print("------\n" + prefix + "tweak " + tweak)
 
         # grabs data about tweak from sauriks api
-        r = aiohttp.get("https://cydia.saurik.com/api/macciti?query=" + tweak.replace(' ', '').lower().strip())
-        t = r.text
-        data = json.loads(t)
+        async with aiohttp.ClientSession() as session:
+            async with session.get("https://cydia.saurik.com/api/macciti?query=" + tweak.replace(' ', '').lower().strip()) as r:
+                t = await r.text()
+                data = json.loads(t)
 
-        # checks if the tweak matches the api's first response
-        for x in range(len(data["results"])):
-            rtweak = data["results"][x]
-            if (rtweak["display"].replace(' ', '').lower().strip() == tweak.replace(' ', '').lower().strip()):
+                # checks if the tweak matches the api's first response
+                for x in range(len(data["results"])):
+                    rtweak = data["results"][x]
+                    if (rtweak["display"].replace(' ', '').lower().strip() == tweak.replace(' ', '').lower().strip()):
 
-                # gathers basic info
-                tweakname = rtweak["display"]
-                bundleid = rtweak["name"]
-                section = rtweak["section"]
-                summary = rtweak["summary"]
-                # version = rtweak["version"]
-                url = "http://cydia.saurik.com/package/" + bundleid
-                icon_url = "http://cydia.saurik.com/icon@2x/" + bundleid + ".png"
+                        # gathers basic info
+                        tweakname = rtweak["display"]
+                        bundleid = rtweak["name"]
+                        section = rtweak["section"]
+                        summary = rtweak["summary"]
+                        # version = rtweak["version"]
+                        url = "http://cydia.saurik.com/package/" + bundleid
+                        icon_url = "http://cydia.saurik.com/icon@2x/" + bundleid + ".png"
 
-                # gets package price
-                r = aiohttp.get("http://cydia.saurik.com/api/ibbignerd?query=" + bundleid).text
-                pr = json.loads(r)
-                if pr is None:
-                    price = "Free"
-                else:
-                    price = pr["msrp"]
+                        # gets package price
+                        async with session.get("http://cydia.saurik.com/api/ibbignerd?query=" + bundleid) as r:
+                            gr = await r.text()
+                            pr = json.loads(gr)
+                            if pr is None:
+                                price = "Free"
+                            else:
+                                price = pr["msrp"]
 
-                # grabs the repo tweak is hosted on (stolen from https://github.com/hizinfiz/TweakInfoBot/)
-                html = aiohttp.get(url).text
-                soup = BeautifulSoup(html, "html.parser")
-                repo = soup.find('span', {'class': 'source-name'}).contents[0]
-                if repo == 'ModMyi.com':
-                    repo = 'ModMyi'
+                        # grabs the repo tweak is hosted on (stolen from https://github.com/hizinfiz/TweakInfoBot/)
+                        async with session.get(url) as r:
+                            html = await r.text()
+                            soup = BeautifulSoup(html, "html.parser")
+                            repo = soup.find('span', {'class': 'source-name'}).contents[0]
+                            if repo == 'ModMyi.com':
+                                        repo = 'ModMyi'
 
-                # constructs nice embed
-                embed = discord.Embed(title=tweakname, url=url, color=embed_color)
-                embed.set_footer(text=tweakname, icon_url=icon_url)
-                embed.add_field(name="Section", value=section, inline=True)
-                embed.add_field(name="Repo", value=repo, inline=True)
-                # embed.add_field(name="Version", value=version, inline=True)
-                embed.add_field(name="Price", value=price, inline=True)
-                embed.add_field(name="Summary", value=summary, inline=False)
-                await ctx.send(embed=embed)
-                print("Successful")
-                return
+                        # constructs nice embed
+                        embed = discord.Embed(title=tweakname, url=url, color=embed_color)
+                        embed.set_footer(text=tweakname, icon_url=icon_url)
+                        embed.add_field(name="Section", value=section, inline=True)
+                        embed.add_field(name="Repo", value=repo, inline=True)
+                        # embed.add_field(name="Version", value=version, inline=True)
+                        embed.add_field(name="Price", value=price, inline=True)
+                        embed.add_field(name="Summary", value=summary, inline=False)
+                        await ctx.send(embed=embed)
+                        print("Successful")
+                        return
 
-        # if command fails
-        await ctx.send("Couldn't find info for tweak " + tweak)
-        print("Failed")
+                # if command fails
+                await ctx.send("Couldn't find info for tweak " + tweak)
+                print("Failed")
 
     else:
         await ctx.send("Command `tweak` is disabled")
@@ -192,30 +196,33 @@ async def docs(ctx, doc: str = ''):
         pages = ["objectivec", "uikit", "webkit", "foundation", "coregraphics", "coredata", "kernel", "coreservices"]
         for x in pages:
             url = "https://developer.apple.com/documentation/" + x + "/" + doc + "?language=objc"
-            html = aiohttp.get(url).text
-            soup = BeautifulSoup(html, "html.parser")
 
-            try:
-                summary = soup.find('p').contents[0]
-                done = True
-                print("Success!")
-                break
-            except AttributeError:
-                continue
+            async with aiohttp.ClientSession() as session:
+                async with session.get(url) as r:
+                    html = await r.text()
+                    soup = BeautifulSoup(html, "html.parser")
 
-        if done:
+                    try:
+                        summary = soup.find('p').contents[0]
+                        done = True
+                        print("Success!")
+                        break
+                    except AttributeError:
+                        continue
 
-            # goes to main objc doc page if nothing specified
-            if(doc == ''):
-                doc = "Objective-C"
+            if done:
 
-            # constructs embed containing url and summary
-            embed = discord.Embed(title="Docs for " + doc, url=url, color=embed_color)
-            embed.add_field(name="Summary", value=summary, inline=False)
-            await ctx.send(embed=embed)
-        else:
-            print("Failed")
-            await ctx.send("Unable to find doc for " + doc)
+                # goes to main objc doc page if nothing specified
+                if(doc == ''):
+                    doc = "Objective-C"
+
+                # constructs embed containing url and summary
+                embed = discord.Embed(title="Docs for " + doc, url=url, color=embed_color)
+                embed.add_field(name="Summary", value=summary, inline=False)
+                await ctx.send(embed=embed)
+            else:
+                print("Failed")
+                await ctx.send("Unable to find doc for " + doc)
 
     else:
         await ctx.send("Command `docs` is disabled")
@@ -267,36 +274,38 @@ async def header(ctx, text: str, uinput0: str = '', uinput1: str = ''):  # , ios
             else:
                 url = "http://developer.limneos.net/index.php?ios=" + ios + "&framework=" + x + "&header=" + text
 
-            html = aiohttp.get(url).text
-            soup = BeautifulSoup(html, "html.parser")
-            if str(soup).strip() == "Access error.":
-                await ctx.send("Header " + text + " not found for iOS " + ios)
+            async with aiohttp.ClientSession() as session:
+                async with session.get(url) as r:
+                    html = await r.text()
+                    soup = BeautifulSoup(html, "html.parser")
+                    if str(soup).strip() == "Access error.":
+                        await ctx.send("Header " + text + " not found for iOS " + ios)
+                        print("Failed")
+                        return
+
+                    title = soup.title.contents[0]
+
+                    try:
+                        if(soup.findAll('div')[7].findAll('br')[1].contents[0].strip() == "Error resolving file."):
+                            continue
+
+                        else:
+                            embed = discord.Embed(title=title, url=url, color=embed_color)
+                            await ctx.send(embed=embed)
+                            print("Successful!")
+                            return
+
+                    except IndexError:
+                        if soup.findAll('div')[6].findAll('br')[0].findAll('br')[0].contents[0].strip() == "Error resolving file.":
+                            continue
+                        else:
+                            embed = discord.Embed(title=title, url=url, color=embed_color)
+                            await ctx.send(embed=embed)
+                            print("Successful!")
+                            return
+
+                await ctx.send("Couldn't find header for " + text)
                 print("Failed")
-                return
-
-            title = soup.title.contents[0]
-
-            try:
-                if(soup.findAll('div')[7].findAll('br')[1].contents[0].strip() == "Error resolving file."):
-                    continue
-
-                else:
-                    embed = discord.Embed(title=title, url=url, color=embed_color)
-                    await ctx.send(embed=embed)
-                    print("Successful!")
-                    return
-
-            except IndexError:
-                if soup.findAll('div')[6].findAll('br')[0].findAll('br')[0].contents[0].strip() == "Error resolving file.":
-                    continue
-                else:
-                    embed = discord.Embed(title=title, url=url, color=embed_color)
-                    await ctx.send(embed=embed)
-                    print("Successful!")
-                    return
-
-        await ctx.send("Couldn't find header for " + text)
-        print("Failed")
 
     else:
         await ctx.send("Command `header` is disabled")
@@ -320,27 +329,30 @@ async def framework(ctx, text: str):
             text_frm = text
 
         url = "http://developer.limneos.net/index.php?ios=" + ios + "&framework=" + text_frm
-        html = aiohttp.get(url).text
-        soup = BeautifulSoup(html, "html.parser")
 
-        title = soup.title.contents[0]
+        async with aiohttp.ClientSession() as session:
+            async with session.get(url) as r:
+                html = await r.text()
+                soup = BeautifulSoup(html, "html.parser")
 
-        try:
-            if(soup.findAll('div')[7].findAll('pre')[0].contents[0].strip() == "Given Framework doesn't exist in my database, sorry."):
+                title = soup.title.contents[0]
 
-                await ctx.send("Couldn't find framework " + text)
-                print("Failed")
-            else:
-                embed = discord.Embed(title=title, url=url, color=embed_color)
-                await ctx.send(embed=embed)
-                print("Successful!")
-                return
+                try:
+                    if(soup.findAll('div')[7].findAll('pre')[0].contents[0].strip() == "Given Framework doesn't exist in my database, sorry."):
 
-        except IndexError:
-            embed = discord.Embed(title=title, url=url, color=embed_color)
-            await ctx.send(embed=embed)
-            print("Successful!")
-            return
+                        await ctx.send("Couldn't find framework " + text)
+                        print("Failed")
+                    else:
+                        embed = discord.Embed(title=title, url=url, color=embed_color)
+                        await ctx.send(embed=embed)
+                        print("Successful!")
+                        return
+
+                except IndexError:
+                    embed = discord.Embed(title=title, url=url, color=embed_color)
+                    await ctx.send(embed=embed)
+                    print("Successful!")
+                    return
 
     else:
         await ctx.send("Command `framework` is disabled")
