@@ -57,8 +57,7 @@ async def canijb(ctx, ios: str, ios2: str = ""):
 
     if(canijb_enabled):
 
-        # deletes message containing command
-        ctx.message.delete()
+        await ctx.trigger_typing()
 
         if (ios.lower() == "ios"):
             ios = ios2
@@ -115,6 +114,8 @@ async def canijb(ctx, ios: str, ios2: str = ""):
 async def tweak(ctx, tweak: str, tweak2: str = '', tweak3: str = '', tweak4: str = ''):
 
     if(tweak_enabled):
+
+        await ctx.trigger_typing()
 
         # allows for multi word input
         tweak = tweak + tweak2 + tweak3 + tweak4
@@ -181,6 +182,8 @@ async def docs(ctx, doc: str = ''):
 
     if(docs_enabled):
 
+        await ctx.trigger_typing()
+
         # logs command issued
         print("------\n" + prefix + "docs " + doc)
         done = False
@@ -220,7 +223,10 @@ async def docs(ctx, doc: str = ''):
 
 @bot.command(usage='[object]', aliases=['h', 'headers'])
 async def header(ctx, text: str, uinput0: str = '', uinput1: str = ''):  # , ios: str = '11.1.2'):
+
     if(header_enabled):
+
+        await ctx.trigger_typing()
 
         text = text.replace(' ', '').strip()
 
@@ -299,6 +305,8 @@ async def header(ctx, text: str, uinput0: str = '', uinput1: str = ''):  # , ios
 @bot.command(aliases=['f'])
 async def framework(ctx, text: str):
     if(framework_enabled):
+
+        await ctx.trigger_typing()
 
         text = text.replace(' ', '').strip()
 
