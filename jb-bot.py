@@ -17,7 +17,7 @@ with open('config.json', 'r') as f:
     my_id = int(config["owner_id"])
 
 prefix = '$'
-embed_color = discord.Colour.from_rgb(150, 200, 250)
+embed_color = discord.Colour(0x96c8fa)
 bot = commands.Bot(command_prefix=prefix, description="", case_insensitive=True, owner_id=my_id)
 
 profile_enabled = True
