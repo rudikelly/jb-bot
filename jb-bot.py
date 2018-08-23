@@ -34,8 +34,9 @@ say_enabled = False
 @bot.event
 async def on_ready():
     print('Successfully connected!')
-    print('Under user - ' + bot.user.name)
+    print('As user - ' + bot.user.name)
     print('And ID - ' + str(bot.user.id))
+    print('Owners id - ' + bot.owner_id)
     print('------\n')
     await bot.change_presence(activity=discord.Game(name='$help'))
     print(bot.owner_id)
