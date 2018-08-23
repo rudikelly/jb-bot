@@ -6,7 +6,7 @@ import json
 import aiohttp
 from packaging import version
 from bs4 import BeautifulSoup
-from zalgo_text import zalgo as z
+from zalgo_text import zalgo
 from pyfiglet import Figlet
 import time
 
@@ -348,7 +348,7 @@ async def say(ctx, *, words):
 @bot.command(usage='[text]', aliases=['z'])
 async def zalgo(ctx, *, words):
     if(zalgo_enabled):
-        zalgod = z.zalgo().zalgofy(words)
+        zalgod = zalgo.zalgofy(words)
         await ctx.send(zalgod)
     else:
         await ctx.send("Command `zalgo` is disabled")
