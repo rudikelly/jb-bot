@@ -6,7 +6,7 @@ import json
 import aiohttp
 from packaging import version
 from bs4 import BeautifulSoup
-from zalgo_text import zalgo
+from zalgo_text import zalgo as z
 from pyfiglet import Figlet
 import time
 import random
@@ -395,7 +395,6 @@ async def xkcd(ctx, arg: str = ''):
                     await ctx.send("`xkcd`: Unknown option `" + arg + "`")
                     return
 
-
             async with session.get("https://xkcd.com/" + str(num) + "/info.0.json") as r:
                 comic = json.loads(await r.text())
                 title = comic["safe_title"]
@@ -416,7 +415,7 @@ async def say(ctx, *, words):
 @bot.command(usage='[text]', aliases=['z'])
 async def zalgo(ctx, *, words):
     if(zalgo_enabled):
-        zalgod = zalgo.zalgofy(words)
+        zalgod = z.zalgofy(words)
         await ctx.send(zalgod)
     else:
         await ctx.send("Command `zalgo` is disabled")
@@ -554,7 +553,6 @@ async def help(ctx):
         await msg.add_reaction(u"\u27A1")
 
 
-
 @help.command(aliases=['jb', 'canijailbreak'])
 async def canijb(ctx):
     embed = discord.Embed(title="Jailbreak Bot Help", color=embed_color)
@@ -601,6 +599,7 @@ async def framework(ctx):
     embed.add_field(name="$framework [framework]  or  $f [framework]", value="Provides a link to requested framework on developer.limneos.net. Case Sensitive.", inline=True)
     embed.add_field(name="Examples", value="$framework SpringBoard\n$f UIKit\n$f Foundation", inline=False)
     await ctx.send(embed=embed)
+
 
 @help.command()
 async def xkcd(ctx):
