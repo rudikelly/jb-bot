@@ -540,8 +540,10 @@ bot.remove_command('help')
 async def help(ctx):
     if ctx.invoked_subcommand is None:
 
+        page = 1
+
         # embed containing help
-        embed = discord.Embed(title="Jailbreak Bot Help", color=embed_color)
+        embed = discord.Embed(title="Jailbreak Bot Help | Page " + str(page), color=embed_color)
         embed.add_field(name="$canijb [ios]  or  $jb [ios]", value="Check if the given iOS is jailbreak-able", inline=False)
         embed.add_field(name="$profile  or  $tvos", value="Sends the tvOS 11 beta profile in the current channel, allowing you to 1-click install it", inline=True)
         embed.add_field(name="$tweak [tweak]  or  $theme [theme]", value="Provides information about and a download link for a specific tweak", inline=True)
