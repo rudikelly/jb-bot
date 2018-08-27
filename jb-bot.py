@@ -23,7 +23,7 @@ def get_prefix():
 
 
 embed_color = discord.Colour(0x96c8fa)
-bot = commands.Bot(command_prefix=commands.when_mentioned_or(get_prefix), description="", case_insensitive=True, owner_id=my_id)
+bot = commands.Bot(command_prefix=commands.when_mentioned_or(get_prefix()), description="", case_insensitive=True, owner_id=my_id)
 
 profile_enabled = True
 canijb_enabled = True
