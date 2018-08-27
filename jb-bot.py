@@ -68,7 +68,7 @@ async def canijb(ctx, ios: str, ios2: str = ""):
             ios = ios2
 
         # logs the command issued
-        print("------\n" + get_prefix() + "canijb " + ios)
+        print("------\n" + ctx.message.content)
 
         # fetches json api, loads into list
         async with aiohttp.ClientSession() as session:
@@ -127,7 +127,7 @@ async def tweak(ctx, tweak: str, tweak2: str = '', tweak3: str = '', tweak4: str
         tweak = tweak + tweak2 + tweak3 + tweak4
 
         # logs the command issued
-        print("------\n" + get_prefix() + "tweak " + tweak)
+        print("------\n" + ctx.message.content)
 
         # grabs data about tweak from sauriks api
         async with aiohttp.ClientSession() as session:
@@ -194,7 +194,7 @@ async def docs(ctx, doc: str = '', framework: str = ''):
         await ctx.trigger_typing()
 
         # logs command issued
-        print("------\n" + get_prefix() + "docs " + doc)
+        print("------\n" + ctx.message.content)
         done = False
 
         if framework != '':
@@ -259,7 +259,7 @@ async def header(ctx, text: str, uinput0: str = '', uinput1: str = ''):  # , ios
         text = text.replace(' ', '').strip()
 
         # logs command issued
-        print("------\n" + get_prefix() + "header " + text)
+        print("------\n" + ctx.message.content)
         ios = "11.1.2"
 
         # appends .h if it isnt there already
@@ -341,7 +341,7 @@ async def framework(ctx, text: str):
         text = text.replace(' ', '').strip()
 
         # logs command issued
-        print("------\n" + get_prefix() + "framework " + text)
+        print("------\n" + ctx.message.content)
         ios = "11.1.2"
 
         if not text == "SpringBoard" and not text[:-10] == ".framework":
@@ -618,43 +618,43 @@ async def xkcd_help(ctx):
 @canijb.error
 async def canijb_on_error(ctx, error):
     await ctx.send("Usage:")
-    await ctx.send("``" + get_prefix() + "canijb [ios]``")
+    await ctx.send("``$canijb [ios]``")
 
 
 @tweak.error
 async def tweak_on_error(ctx, error):
     await ctx.send("Usage:")
-    await ctx.send("``" + get_prefix() + "tweak [tweak]``")
+    await ctx.send("``$tweak [tweak]``")
 
 
 @docs.error
 async def docs_on_error(ctx, error):
     await ctx.send("Usage:")
-    await ctx.send("``" + get_prefix() + "docs [object]``")
+    await ctx.send("``$docs [object]``")
 
 
 @header.error
 async def header_on_error(ctx, error):
     await ctx.send("Usage:")
-    await ctx.send("``" + get_prefix() + "header [header]``")
+    await ctx.send("``$header [header]``")
 
 
 @zalgo.error
 async def zalgo_on_error(ctx, error):
     await ctx.send("Usage:")
-    await ctx.send("``" + get_prefix() + "zalgo [text]``")
+    await ctx.send("``$zalgo [text]``")
 
 
 @ascii.error
 async def ascii_on_error(ctx, error):
     await ctx.send("Usage:")
-    await ctx.send("``" + get_prefix() + "ascii [text]``")
+    await ctx.send("``$ascii [text]``")
 
 
 @xkcd.error
 async def xkcd_on_error(ctx, error):
     await ctx.send("Usage:")
-    await ctx.send("``" + get_prefix() + "xkcd [number]``")
+    await ctx.send("``$xkcd [number]``")
 
 
 bot.run(token)
