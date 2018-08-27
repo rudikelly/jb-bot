@@ -18,12 +18,13 @@ with open('config.json', 'r') as f:
     my_id = int(config["owner_id"])
 
 
-def get_prefix():
-    return '$'
+def get_prefix(bot, message):
+    prefixes = ['$', '!?']
+    return commands.when_mentioned_or(*prefixes)(bot, message)
 
 
 embed_color = discord.Colour(0x96c8fa)
-bot = commands.Bot(command_prefix=commands.when_mentioned_or(get_prefix()), description="", case_insensitive=True, owner_id=my_id)
+bot = commands.Bot(command_prefix=get_prefix, description="", case_insensitive=True, owner_id=my_id)
 
 profile_enabled = True
 canijb_enabled = True
