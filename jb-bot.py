@@ -45,7 +45,6 @@ async def on_ready():
     print('Owners id - ' + str(bot.owner_id))
     print('------\n')
     await bot.change_presence(activity=discord.Game(name='$help'))
-    print(bot.owner_id)
 
 
 @bot.command(aliases=['tvos'])
