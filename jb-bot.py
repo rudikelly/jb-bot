@@ -32,7 +32,8 @@ extensions = ["jailbreak.canijb",
               "fun.ascii",
               "meta.ping",
               "meta.game",
-              "meta.help"]
+              "meta.help",
+              "admin.purge"]
 
 for x in extensions:
     bot.load_extension("commands." + x)
