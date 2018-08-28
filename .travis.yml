@@ -12,7 +12,9 @@ install:
 # Lints
 script:
   - python -m py_compile jb-bot.py
+  - python -m compileall commands/
   - pycodestyle --ignore=E501 jb-bot.py
+  - pycodestyle --ignore=E501,E402 -r commands/
 
 notifications:
   email: false
