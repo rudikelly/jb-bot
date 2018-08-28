@@ -48,10 +48,6 @@ async def on_ready():
     await bot.change_presence(activity=discord.Game(name='$help'))
 
 
-
-
-
-
 @commands.is_owner()
 @bot.command(aliases=['e', 'enable'])
 async def load(ctx, extension: str):
