@@ -3,37 +3,34 @@ import asyncio
 from discord.ext import commands
 
 import json
+import sys
 
-# get token and id from ext file for security
-with open('config/config.json', 'r') as f:
-    config = json.load(f)
-    token = config["token"]
-    my_id = int(config["owner_id"])
+try:
+    with open('config/config.json', 'r') as f:
+        config = json.load(f)
+        extensions = config["startup_extensions"]
+        prefixes = config["prefixes"]
+        default_game = config["default_game"]
+        my_id = int(config["owner_id"])
+except():
+    print("Couldn't open config file. Exiting")
+    sys.exit()
+
+try:
+    with open('config/keys.json', 'r') as f:
+        keys = json.load(f)
+        token = keys["token"]
+except():
+    print("Couldn't open keys file. Exiting")
+    sys.exit()
 
 
 def get_prefix(bot, message):
-    prefixes = ['$', '!?']
     return commands.when_mentioned_or(*prefixes)(bot, message)
 
 
-embed_color = discord.Colour(0x96c8fa)
 bot = commands.Bot(command_prefix=get_prefix, description="", case_insensitive=True, owner_id=my_id)
 bot.remove_command('help')
-
-extensions = ["jailbreak.canijb",
-              "jailbreak.canijb",
-              "jailbreak.profile",
-              "dev.docs",
-              "dev.header",
-              "dev.framework",
-              "fun.say",
-              "fun.xkcd",
-              "fun.zalgo",
-              "fun.ascii",
-              "meta.ping",
-              "meta.game",
-              "meta.help",
-              "admin.purge"]
 
 for x in extensions:
     bot.load_extension("commands." + x)
@@ -46,7 +43,7 @@ async def on_ready():
     print('And ID - ' + str(bot.user.id))
     print('Owners id - ' + str(bot.owner_id))
     print('------\n')
-    await bot.change_presence(activity=discord.Game(name='$help'))
+    await bot.change_presence(activity=discord.Game(name=default_game))
 
 
 @commands.is_owner()

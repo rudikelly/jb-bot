@@ -1,4 +1,19 @@
 {
-  "token" : "",
+  "startup_extensions" : [
+    "jailbreak.canijb",
+    "jailbreak.canijb",
+    "jailbreak.profile",
+    "dev.docs",
+    "dev.header",
+    "dev.framework",
+    "fun.say",
+    "fun.xkcd",
+    "fun.zalgo",
+    "fun.ascii",
+    "meta.ping",
+    "meta.game",
+    "meta.help",
+    "admin.purge"
+  ],
   "owner_id" : ""
 }
