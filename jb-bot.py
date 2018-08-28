@@ -5,7 +5,7 @@ from discord.ext import commands
 import json
 
 # get token and id from ext file for security
-with open('config.json', 'r') as f:
+with open('config/config.json', 'r') as f:
     config = json.load(f)
     token = config["token"]
     my_id = int(config["owner_id"])
