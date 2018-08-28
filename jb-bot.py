@@ -19,21 +19,21 @@ def get_prefix(bot, message):
 embed_color = discord.Colour(0x96c8fa)
 bot = commands.Bot(command_prefix=get_prefix, description="", case_insensitive=True, owner_id=my_id)
 
-extensions = ["commands.jailbreak.canijb",
-              "commands.jailbreak.canijb",
-              "commands.jailbreak.profile",
-              "commands.dev.docs",
-              "commands.dev.header",
-              "commands.dev.framework",
-              "commands.fun.say",
-              "commands.fun.xkcd",
-              "commands.fun.zalgo",
-              "commands.fun.ascii",
-              "commands.meta.ping",
-              "commands.meta.game"]
+extensions = ["jailbreak.canijb",
+              "jailbreak.canijb",
+              "jailbreak.profile",
+              "dev.docs",
+              "dev.header",
+              "dev.framework",
+              "fun.say",
+              "fun.xkcd",
+              "fun.zalgo",
+              "fun.ascii",
+              "meta.ping",
+              "meta.game"]
 
 for x in extensions:
-    bot.load_extension(x)
+    bot.load_extension("commands." + x)
 
 profile_enabled = True
 canijb_enabled = True
