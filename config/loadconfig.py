@@ -16,6 +16,7 @@ try:
     with open('config/keys.json', 'r') as f:
         keys = json.load(f)
         token = keys["token"]
+        bitly_token = keys["bitly_token"]
 except(FileNotFoundError):
     print("Couldn't open keys file. Exiting")
     sys.exit()
