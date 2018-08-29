@@ -1,7 +1,7 @@
 {
   "startup_extensions" : [
     "jailbreak.canijb",
-    "jailbreak.canijb",
+    "jailbreak.tweak",
     "jailbreak.profile",
     "dev.docs",
     "dev.header",
