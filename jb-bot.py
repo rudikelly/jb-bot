@@ -2,6 +2,11 @@ import discord
 import asyncio
 from discord.ext import commands
 import config.loadconfig as cfg
+import logging
+
+
+# Sets up logging
+logging.basicConfig(level=logging.INFO)
 
 
 # Initializes bot with basic info
@@ -46,7 +51,7 @@ async def unload(ctx, extension: str):
     try:
         bot.unload_extension("commands." + extension)
     except (AttributeError, ImportError) as e:
-        await ctx.send("```py\n{}: {}\n```".format(type(e).__name__, str(e)))
+        print("```py\n{}: {}\n```".format(type(e).__name__, str(e)))
         return
     await ctx.send("Successfully unloaded extension {}".format(extension))
 
