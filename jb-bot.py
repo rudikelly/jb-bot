@@ -47,7 +47,7 @@ async def on_ready():
     await bot.change_presence(activity=discord.Game(name=cfg.game))
 
 
-# Load extra extensions
+# Command to load extra extensions
 @commands.is_owner()
 @bot.command(aliases=['e', 'enable'])
 async def load(ctx, extension: str):
@@ -60,7 +60,7 @@ async def load(ctx, extension: str):
     await ctx.send("Successfully loaded extension {}".format(extension))
 
 
-# Unload extensions
+# Command to unload extensions
 @commands.is_owner()
 @bot.command(aliases=['d', 'disable'])
 async def unload(ctx, extension: str):
