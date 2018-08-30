@@ -1,5 +1,4 @@
 from discord.ext import commands
-
 from pyfiglet import Figlet
 
 
