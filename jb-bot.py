@@ -10,7 +10,7 @@ import logging as log
 log.basicConfig(level=log.INFO)
 
 # Initializes bot with basic info
-bot = commands.Bot(command_prefix=commands.when_mentioned_or(cfg.prefixes), description="", case_insensitive=True, owner_id=cfg.my_id)
+bot = commands.Bot(command_prefix=commands.when_mentioned_or(*cfg.prefixes), description="", case_insensitive=True, owner_id=cfg.my_id)
 bot.remove_command('help')
 
 # Gets list of file in 'commands' dir, stores in 'extensions'
@@ -43,6 +43,7 @@ async def on_ready():
     print('And ID - ' + str(bot.user.id))
     print('Owners id - ' + str(bot.owner_id))
     print('------\n')
+    print(cfg.prefixes)
     await bot.change_presence(activity=discord.Game(name=cfg.game))
 
 
