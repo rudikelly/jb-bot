@@ -67,7 +67,7 @@ async def unload(ctx, extension: str):
     try:
         bot.unload_extension("commands." + extension)
     except (AttributeError, ImportError) as e:
-        print("```py\n{}: {}\n```".format(type(e).__name__, str(e)))
+        await ctx.send("```py\n{}: {}\n```".format(type(e).__name__, str(e)))
         return
     await ctx.send("Successfully unloaded extension {}".format(extension))
 
