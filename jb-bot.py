@@ -9,9 +9,8 @@ import logging
 # Sets up logging
 logging.basicConfig(level=logging.INFO)
 
-
 # Initializes bot with basic info
-bot = commands.Bot(command_prefix=commands.when_mentioned_or(*cfg.prefixes), description="", case_insensitive=True, owner_id=cfg.my_id)
+bot = commands.Bot(command_prefix=commands.when_mentioned_or(cfg.prefixes), description="", case_insensitive=True, owner_id=cfg.my_id)
 bot.remove_command('help')
 
 # Gets list of file in 'commands' dir, stores in 'extensions'
@@ -28,10 +27,10 @@ for extension in extensions:
         if "commands." + extension.lower() != ignore:
             try:
                 bot.load_extension(extension)
-                print("Successfully loaded " + extension)
+                logging.info("Successfully loaded " + extension)
                 break
             except(ModuleNotFoundError):
-                print("Failed to load " + extension)
+                logging.warning("Failed to load " + extension)
                 break
 
 
