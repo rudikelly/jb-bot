@@ -8,6 +8,7 @@ try:
         prefixes = config["prefixes"]
         game = config["default_game"]
         my_id = int(config["owner_id"])
+        banned_words = config["banned_words"]
 except(FileNotFoundError):
     print("Couldn't open config file. Exiting")
     sys.exit()

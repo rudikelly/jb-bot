@@ -2,6 +2,9 @@
   "ignore_extensions" : [
     ""
   ],
+  "banned_words" : [
+    ""
+  ],
   "prefixes" : ["$, !?"],
   "default_game" : "$help",
   "owner_id" : ""
