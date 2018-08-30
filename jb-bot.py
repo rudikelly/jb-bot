@@ -38,6 +38,7 @@ for extension in extensions:
 # Announces successful connection and basic data
 @bot.event
 async def on_ready():
+    os.system('clear')
     print('Successfully connected!')
     print('As user - ' + bot.user.name)
     print('And ID - ' + str(bot.user.id))
