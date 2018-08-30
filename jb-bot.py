@@ -2,6 +2,7 @@ import discord
 import asyncio
 from discord.ext import commands
 import config.loadconfig as cfg
+import os
 import logging
 
 
@@ -13,10 +14,25 @@ logging.basicConfig(level=logging.INFO)
 bot = commands.Bot(command_prefix=commands.when_mentioned_or(*cfg.prefixes), description="", case_insensitive=True, owner_id=cfg.my_id)
 bot.remove_command('help')
 
+# Gets list of file in 'commands' dir, stores in 'extensions'
+categories = os.listdir("commands")
+extensions = []
+for category in categories:
+    files = os.listdir("commands/" + category)
+    for file in files:
+        extensions.append("commands." + category + "." + file[:-3])
 
-# Initializes commands
-for x in cfg.extensions:
-    bot.load_extension("commands." + x)
+# Loads all extensions except those explicitly ignored
+for extension in extensions:
+    for ignore in cfg.ignored:
+        if "commands." + extension.lower() != ignore:
+            try:
+                bot.load_extension(extension)
+                print("Successfully loaded " + extension)
+                break
+            except(ModuleNotFoundError):
+                print("Failed to load " + extension)
+                break
 
 
 # Announces successful connection and basic data

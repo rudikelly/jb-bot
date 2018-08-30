@@ -1,22 +1,8 @@
 {
-  "startup_extensions" : [
-    "jailbreak.canijb",
-    "jailbreak.tweak",
-    "jailbreak.profile",
-    "dev.docs",
-    "dev.header",
-    "dev.framework",
-    "fun.say",
-    "fun.xkcd",
-    "fun.zalgo",
-    "fun.ascii",
-    "meta.ping",
-    "meta.game",
-    "meta.help",
-    "admin.purge",
-    "misc.shorten"
+  "ignore_extensions" : [
+    ""
   ],
   "prefixes" : ["$, !?"],
   "default_game" : "$help",
-  "owner_id" : "398607993710837761"
+  "owner_id" : ""
 }

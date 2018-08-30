@@ -4,7 +4,7 @@ import json
 try:
     with open('config/config.json', 'r') as f:
         config = json.load(f)
-        extensions = config["startup_extensions"]
+        ignored = config["ignore_extensions"]
         prefixes = config["prefixes"]
         game = config["default_game"]
         my_id = int(config["owner_id"])
