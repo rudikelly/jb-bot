@@ -3,11 +3,11 @@ import asyncio
 from discord.ext import commands
 import config.loadconfig as cfg
 import os
-import logging
+import logging as log
 
 
 # Sets up logging
-logging.basicConfig(level=logging.INFO)
+log.basicConfig(level=log.INFO)
 
 # Initializes bot with basic info
 bot = commands.Bot(command_prefix=commands.when_mentioned_or(cfg.prefixes), description="", case_insensitive=True, owner_id=cfg.my_id)
@@ -27,10 +27,10 @@ for extension in extensions:
         if "commands." + extension.lower() != ignore:
             try:
                 bot.load_extension(extension)
-                logging.info("Successfully loaded " + extension)
+                log.info("Successfully loaded " + extension)
                 break
             except(ModuleNotFoundError):
-                logging.warning("Failed to load " + extension)
+                log.warning("Failed to load " + extension)
                 break
 
 
