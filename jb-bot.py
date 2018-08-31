@@ -43,7 +43,6 @@ async def on_ready():
     print('And ID - ' + str(bot.user.id))
     print('Owners id - ' + str(bot.owner_id))
     print('------\n')
-    print(cfg.prefixes)
     await bot.change_presence(activity=discord.Game(name=cfg.game))
 
 
