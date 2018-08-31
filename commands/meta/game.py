@@ -13,6 +13,7 @@ class game():
         print("$game errored:")
         print(error)
 
+    @commands.is_owner()
     @commands.command(aliases=['play'])
     async def game(self, ctx, *, game):
         await self.bot.change_presence(activity=discord.Game(name=game))
