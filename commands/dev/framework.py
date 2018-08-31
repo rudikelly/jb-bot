@@ -24,7 +24,6 @@ class framework():
         text = text.replace(' ', '').strip()
 
         # logs command issued
-        print("------\n" + ctx.message.content)
         ios = "11.1.2"
 
         if not text == "SpringBoard" and not text[:-10] == ".framework":
@@ -45,17 +44,14 @@ class framework():
                     if(soup.findAll('div')[7].findAll('pre')[0].contents[0].strip() == "Given Framework doesn't exist in my database, sorry."):
 
                         await ctx.send("Couldn't find framework " + text)
-                        print("Failed")
                     else:
                         embed = discord.Embed(title=title, url=url, color=discord.Colour(0x96c8fa))
                         await ctx.send(embed=embed)
-                        print("Successful!")
                         return
 
                 except IndexError:
                     embed = discord.Embed(title=title, url=url, color=discord.Colour(0x96c8fa))
                     await ctx.send(embed=embed)
-                    print("Successful!")
                     return
 
 

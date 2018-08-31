@@ -23,8 +23,6 @@ class header():
 
         text = text.replace(' ', '').strip()
 
-        # logs command issued
-        print("------\n" + ctx.message.content)
         ios = "11.1.2"
 
         # appends .h if it isnt there already
@@ -66,7 +64,6 @@ class header():
                     soup = BeautifulSoup(html, "html.parser")
                     if str(soup).strip() == "Access error.":
                         await ctx.send("Header " + text + " not found for iOS " + ios)
-                        print("Failed")
                         return
 
                     title = soup.title.contents[0]
@@ -78,7 +75,6 @@ class header():
                         else:
                             embed = discord.Embed(title=title, url=url, color=discord.Colour(0x96c8fa))
                             await ctx.send(embed=embed)
-                            print("Successful!")
                             return
 
                     except IndexError:
@@ -87,11 +83,9 @@ class header():
                         else:
                             embed = discord.Embed(title=title, url=url, color=discord.Colour(0x96c8fa))
                             await ctx.send(embed=embed)
-                            print("Successful!")
                             return
 
                 await ctx.send("Couldn't find header for " + text)
-                print("Failed")
 
 
 def setup(bot):

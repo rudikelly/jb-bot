@@ -21,8 +21,6 @@ class docs():
 
         await ctx.trigger_typing()
 
-        # logs command issued
-        print("------\n" + ctx.message.content)
         done = False
 
         if framework != '':
@@ -35,7 +33,6 @@ class docs():
                     try:
                         summary = soup.find('p').contents[0]
                         done = True
-                        print("Success!")
                     except AttributeError:
                         done = False
 
@@ -54,7 +51,6 @@ class docs():
                         try:
                             summary = soup.find('p').contents[0]
                             done = True
-                            print("Success!")
                             break
                         except AttributeError:
                             continue
@@ -70,7 +66,6 @@ class docs():
                 embed.add_field(name="Summary", value=summary, inline=False)
                 await ctx.send(embed=embed)
             else:
-                print("Failed")
                 await ctx.send("Unable to find doc for " + doc)
 
 

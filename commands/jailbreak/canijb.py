@@ -25,9 +25,6 @@ class canijb():
         if (ios.lower() == "ios"):
             ios = ios2
 
-        # logs the command issued
-        print("------\n" + ctx.message.content)
-
         # fetches json api, loads into list
         async with aiohttp.ClientSession() as session:
             async with session.get("http://canijailbreak.com/jailbreaks.json") as r:
@@ -57,18 +54,15 @@ class canijb():
                             embed.add_field(name="Use the tool " + name + " which you can get at:", value=url, inline=False)
                             # embed.set_footer(icon_url=ctx.message.author.avatar_url_as(), text="Requested by " + str(ctx.message.author))
                             await ctx.send(embed=embed)
-                            print("Successful")
                             break
                         else:
                             await ctx.send("iOS " + ios + " can't be jailbroken!")
-                            print("Successful")
                             done = True
                             break
                     else:
                         continue
                 if (not jailbroken and not done):
                     await ctx.send("Couldn't find data for iOS " + ios)
-                    print("Failed")
 
 
 def setup(bot):

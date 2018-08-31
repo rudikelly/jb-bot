@@ -25,9 +25,6 @@ class tweak():
         # allows for multi word input
         tweak = tweak + tweak2 + tweak3 + tweak4
 
-        # logs the command issued
-        print("------\n" + ctx.message.content)
-
         # grabs data about tweak from sauriks api
         async with aiohttp.ClientSession() as session:
             async with session.get("https://cydia.saurik.com/api/macciti?query=" + tweak.replace(' ', '').lower().strip()) as r:
@@ -74,12 +71,10 @@ class tweak():
                         embed.add_field(name="Price", value=price, inline=True)
                         embed.add_field(name="Summary", value=summary, inline=False)
                         await ctx.send(embed=embed)
-                        print("Successful")
                         return
 
                 # if command fails
                 await ctx.send("Couldn't find info for tweak " + tweak)
-                print("Failed")
 
 
 def setup(bot):
