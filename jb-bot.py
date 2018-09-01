@@ -49,6 +49,7 @@ async def on_ready():
                     log.info("Server " + guild.name + " already configured")
                 else:
                     servers["servers"][guild.id] = {}
+                    servers["servers"][guild.id]["repo_list"] = []
                     log.info("Configures server " + guild.name)
             f.seek(0)
             json.dump(servers, f, indent=4)
