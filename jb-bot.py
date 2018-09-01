@@ -3,7 +3,9 @@ import asyncio
 from discord.ext import commands
 import config.loadconfig as cfg
 import os
+import sys
 import logging as log
+import json
 
 
 # Sets up logging
@@ -29,7 +31,7 @@ for extension in extensions:
                 bot.load_extension(extension)
                 log.info("Successfully loaded " + extension)
                 break
-            except(ModuleNotFoundError):
+            except ModuleNotFoundError:
                 log.warning("Failed to load " + extension)
                 break
 
@@ -37,6 +39,23 @@ for extension in extensions:
 # Announces successful connection and basic data
 @bot.event
 async def on_ready():
+
+    # adds missing servers to servers.json
+    try:
+        with open("config/servers.json", 'r+') as f:
+            servers = json.load(f)
+            for guild in bot.guilds:
+                if str(guild.id) in servers["servers"].keys():
+                    log.info("Server " + guild.name + " already configured")
+                else:
+                    servers["servers"][guild.id] = {}
+                    log.info("Configures server " + guild.name)
+            f.seek(0)
+            json.dump(servers, f, indent=4)
+    except FileNotFoundError:
+        log.fatal("Servers.json file not found. Exiting")
+        sys.exit()
+
     os.system('clear')
     print('Successfully connected!')
     print('As user - ' + bot.user.name)
