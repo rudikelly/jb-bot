@@ -5,6 +5,9 @@
   "banned_words" : [
     ""
   ],
+  "repo_list" : [
+    ""
+  ],
   "prefixes" : ["$, !?"],
   "default_game" : "$help",
   "owner_id" : ""
