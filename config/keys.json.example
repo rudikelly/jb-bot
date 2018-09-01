@@ -1,4 +1,6 @@
 {
   "token" : "",
-  "bitly_token" : ""
+  "bitly_token" : "",
+  "google_api_key" : "",
+  "custom_search_engine" : ""
 }

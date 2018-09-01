@@ -18,6 +18,8 @@ try:
         keys = json.load(f)
         token = keys["token"]
         bitly_token = keys["bitly_token"]
+        google_api_key = keys["google_api_key"]
+        custom_search_engine = keys["custom_search_engine"]
 except(FileNotFoundError):
     print("Couldn't open keys file. Exiting")
     sys.exit()
