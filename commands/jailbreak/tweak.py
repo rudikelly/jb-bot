@@ -18,12 +18,7 @@ class tweak():
         print(error)
 
     @commands.command(aliases=['tweakinfo', 'theme'], usage='[tweak]')
-    async def tweak(self, ctx, tweak: str, tweak2: str = '', tweak3: str = '', tweak4: str = ''):
-
-        await ctx.trigger_typing()
-
-        # allows for multi word input
-        tweak = tweak + tweak2 + tweak3 + tweak4
+    async def tweak(self, ctx, *, tweak: str):
 
         # grabs data about tweak from sauriks api
         async with aiohttp.ClientSession() as session:
