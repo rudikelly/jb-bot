@@ -3,3 +3,4 @@ profile.mobileconfig
 __pycache__/
 config.json
 keys.json
+servers.json
