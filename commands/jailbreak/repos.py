@@ -27,7 +27,10 @@ class repos():
                 server_repo_list += repo + "\n"
         if server_repo_list is "":
             server_repo_list = "None"
-        await ctx.send("Built-in repos: ```" + builtin_repo_list + "``` Server repos: ```" + server_repo_list + "```")
+        embed = discord.Embed(title="Jailbreak Bot Repos", color=discord.Colour(0x96c8fa))
+        embed.add_field(name="Built-in Repos:", value=builtin_repo_list, inline=True)
+        embed.add_field(name="Server Repos:", value=server_repo_list, inline=True)
+        await ctx.send(embed=embed)
 
     @commands.command()
     async def repo():
