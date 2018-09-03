@@ -104,7 +104,7 @@ class tweak():
                             exact_match = True
                             break
                     if not exact_match:
-                        tweak_data = data["results"][str(list(data["results"].keys())[x])]
+                        tweak_data = data["results"][str(list(data["results"].keys())[0])]
                     async with session.get("https://cydia.s0n1c.org/cydia/" + "?url=" + repo) as resp:
                         repo_info = json.loads(await resp.text())["info"]
                         repo_icon_url = repo_info["icon"]
@@ -119,7 +119,7 @@ class tweak():
                         embed.add_field(name="Author", value=tweak_data["author"], inline=True)
                     embed.add_field(name="Summary", value=tweak_data["desc"], inline=False)
                     if not exact_match:
-                        await ctx.send("Couldn't find an exact match :(. This might be it")
+                        await ctx.send("Couldn't find an exact match :(. This might be it:")
                     await ctx.send(embed=embed)
                     return
 
