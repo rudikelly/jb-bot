@@ -56,7 +56,7 @@ class repos():
                         json.dump(servers, f, indent=4)
                         return await ctx.send("Repo succesfully added")
                     else:
-                        print("repo not found")
+                        print("That repo doesnt seem valid :(")
 
     @repo.command()
     async def remove(self, ctx, repo_to_remove):
