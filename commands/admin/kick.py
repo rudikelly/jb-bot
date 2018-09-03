@@ -13,7 +13,7 @@ class kick():
         print("$kick errored:")
         print(error)
 
-    @commands.is_owner()
+    @commands.has_permissions(kick_members=True)
     @commands.command()
     async def kick(self, ctx, user: discord.Member):
         try:

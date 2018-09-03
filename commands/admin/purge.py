@@ -12,6 +12,7 @@ class purge():
         print("$purge errored:")
         print(error)
 
+    @commands.has_permissions(administrator=True)
     @commands.command()
     async def purge(self, ctx, msgs: int):
         await ctx.message.delete()

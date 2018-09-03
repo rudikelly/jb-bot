@@ -13,7 +13,7 @@ class ban():
         print("$ban errored:")
         print(error)
 
-    @commands.is_owner()
+    @commands.has_permissions(ban_members=True)
     @commands.command()
     async def ban(self, ctx, user: discord.Member):
         try:

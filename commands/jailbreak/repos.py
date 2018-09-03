@@ -47,6 +47,7 @@ class repos():
                 await session.get("https://cydia.s0n1c.org/cydia/" + "?url=" + repo + "&fetch")
         await ctx.send("Successfully refreshed repos")
 
+    @commands.has_permissions(administrator=True)
     @commands.group()
     async def repo(self, ctx):
         if ctx.invoked_subcommand is None:
