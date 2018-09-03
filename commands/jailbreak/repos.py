@@ -33,6 +33,20 @@ class repos():
         embed.add_field(name="Server Repos:", value=server_repo_list, inline=True)
         await ctx.send(embed=embed)
 
+    @commands.command()
+    async def refresh(self, ctx):
+        repo_list = []
+        for repo in cfg.repo_list:
+            repo_list.append(repo)
+        with open("config/servers.json", 'r') as f:
+            servers = json.load(f)["servers"]
+            for repo in servers[str(ctx.message.guild.id)]["repo_list"]:
+                repo_list.append(repo)
+        async with aiohttp.ClientSession() as session:
+            for repo in repo_list:
+                await session.get("https://cydia.s0n1c.org/cydia/" + "?url=" + repo + "&fetch")
+        await ctx.send("Successfully refreshed repos")
+
     @commands.group()
     async def repo(self, ctx):
         if ctx.invoked_subcommand is None:
