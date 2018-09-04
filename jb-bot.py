@@ -15,7 +15,7 @@ log.basicConfig(level=log.INFO)
 bot = commands.Bot(command_prefix=commands.when_mentioned_or(*cfg.prefixes), description="", case_insensitive=True, owner_id=cfg.my_id)
 bot.remove_command('help')
 
-# Gets list of file in 'commands' dir, stores in 'extensions'
+# Gets list of files in 'commands' dir, stores in 'extensions'
 categories = os.listdir("commands")
 extensions = []
 for category in categories:
@@ -36,11 +36,11 @@ for extension in extensions:
                 break
 
 
-# Announces successful connection and basic data
+# Runs when bot has connected successfully
 @bot.event
 async def on_ready():
 
-    # adds missing servers to servers.json
+    # Adds missing servers to servers.json
     try:
         with open("config/servers.json", 'r+') as f:
             servers = json.load(f)
@@ -50,13 +50,14 @@ async def on_ready():
                 else:
                     servers["servers"][guild.id] = {}
                     servers["servers"][guild.id]["repo_list"] = []
-                    log.info("Configures server " + guild.name)
+                    log.info("Configured server " + guild.name)
             f.seek(0)
             json.dump(servers, f, indent=4)
     except FileNotFoundError:
         log.fatal("Servers.json file not found. Exiting")
         sys.exit()
 
+    # Announces successful connection and basic data
     os.system('clear')
     print('Successfully connected!')
     print('As user - ' + bot.user.name)
@@ -74,9 +75,9 @@ async def load(ctx, extension: str):
     try:
         bot.load_extension("commands." + extension)
     except (AttributeError, ImportError) as e:
-        await ctx.send("```py\n{}: {}\n```".format(type(e).__name__, str(e)))
-        return
-    await ctx.send("Successfully loaded extension {}".format(extension))
+        log.error("Failed to load extension: " + e)
+        return await ctx.send("Failed to load extension")
+    await ctx.send("Successfully loaded extension " + extension)
 
 
 # Command to unload extensions
@@ -87,9 +88,9 @@ async def unload(ctx, extension: str):
     try:
         bot.unload_extension("commands." + extension)
     except (AttributeError, ImportError) as e:
-        await ctx.send("```py\n{}: {}\n```".format(type(e).__name__, str(e)))
-        return
-    await ctx.send("Successfully unloaded extension {}".format(extension))
+        log.error("Failed to unload extension: " + e)
+        return await ctx.send("Failed to unload extension")
+    await ctx.send("Successfully unloaded extension " + extension)
 
 # Runs bot
 bot.run(cfg.token)
