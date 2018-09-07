@@ -23,6 +23,11 @@ for category in categories:
     for file in files:
         extensions.append("commands." + category + "." + file[:-3])
 
+# Also load cogs from utils/
+utils = os.listdir("utils")
+for util in utils:
+    extensions.append("utils." + util[:-3])
+
 # Loads all extensions except those explicitly ignored
 for extension in extensions:
     for ignore in cfg.ignored:
