@@ -7,12 +7,6 @@ class userinfo():
     def __init__(self, bot):
         self.bot = bot
 
-    # async def __error(self, ctx, error):
-    #     await ctx.send("Usage:")
-    #     await ctx.send("``$userinfo @user``")
-    #     print("$userinfo errored:")
-    #     print(error)
-
     @commands.command()
     async def userinfo(self, ctx, user: discord.Member = None):
 
