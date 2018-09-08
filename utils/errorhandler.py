@@ -20,6 +20,9 @@ class CommandErrorHandler:
         # If nothing is found. We keep the exception passed to on_command_error.
         error = getattr(error, 'original', error)
 
+        if hasattr(ctx.cog, f'_{ctx.cog.__class__.__name__}__error'):
+            return
+
         # Anything in ignored will return and prevent anything happening.
         if isinstance(error, ignored):
             return
