@@ -13,8 +13,9 @@ class tweak():
 
     @profile.error
     async def profile_error_handler(self, ctx, error):
+        error = getattr(error, 'original', error)
         if isinstance(error, discord.Forbidden):
-            await ctx.send("I don't have permission to do send files here!")
+            await ctx.send("I don't have permission to send files here!")
 
 
 def setup(bot):
