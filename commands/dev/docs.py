@@ -10,12 +10,6 @@ class docs():
     def __init__(self, bot):
         self.bot = bot
 
-    async def __error(self, ctx, error):
-        await ctx.send("Usage:")
-        await ctx.send("``$docs [object]``")
-        print("$docs errored:")
-        print(error)
-
     @commands.command(aliases=['doc'])
     async def docs(self, ctx, doc: str = '', framework: str = ''):
 

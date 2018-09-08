@@ -10,12 +10,6 @@ class header():
     def __init__(self, bot):
         self.bot = bot
 
-    async def __error(self, ctx, error):
-        await ctx.send("Usage:")
-        await ctx.send("``$header [object]``")
-        print("$header errored:")
-        print(error)
-
     @commands.command(usage='[object]', aliases=['h', 'headers'])
     async def header(self, ctx, text: str, uinput0: str = '', uinput1: str = ''):
 

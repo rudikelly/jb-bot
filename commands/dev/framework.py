@@ -10,12 +10,6 @@ class framework():
     def __init__(self, bot):
         self.bot = bot
 
-    async def __error(self, ctx, error):
-        await ctx.send("Usage:")
-        await ctx.send("``$framework [framework]``")
-        print("$framework errored:")
-        print(error)
-
     @commands.command(aliases=['f'])
     async def framework(self, ctx, text: str):
 

@@ -9,12 +9,6 @@ class ping():
     def __init__(self, bot):
         self.bot = bot
 
-    async def __error(self, ctx, error):
-        await ctx.send("Usage:")
-        await ctx.send("``$ping``")
-        print("$ping errored:")
-        print(error)
-
     @commands.command()
     async def ping(self, ctx):
         t1 = time.perf_counter()

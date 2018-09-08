@@ -11,12 +11,6 @@ class canijb():
     def __init__(self, bot):
         self.bot = bot
 
-    async def __error(self, ctx, error):
-        await ctx.send("Usage:")
-        await ctx.send("``$canijb [ios]``")
-        print("$canijb errored:")
-        print(error)
-
     @commands.command(aliases=['canijailbreak', 'jb'], usage='[ios]')
     async def canijb(self, ctx, ios: str, ios2: str = ""):
         await ctx.trigger_typing()

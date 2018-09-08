@@ -10,12 +10,6 @@ class repos():
     def __init__(self, bot):
         self.bot = bot
 
-    # async def __error(self, ctx, error):
-    #     await ctx.send("Usage:")
-    #     await ctx.send("``$repos``")
-    #     print("$repos errored:")
-    #     print(error)
-
     @commands.command()
     async def repos(self, ctx):
         builtin_repo_list = ""

@@ -7,12 +7,6 @@ class game():
     def __init__(self, bot):
         self.bot = bot
 
-    async def __error(self, ctx, error):
-        await ctx.send("Usage:")
-        await ctx.send("``$game``")
-        print("$game errored:")
-        print(error)
-
     @commands.is_owner()
     @commands.command(aliases=['play'])
     async def game(self, ctx, *, game):

@@ -7,12 +7,6 @@ class help():
     def __init__(self, bot):
         self.bot = bot
 
-    async def __error(self, ctx, error):
-        await ctx.send("Usage:")
-        await ctx.send("``$help``")
-        print("$help errored:")
-        print(error)
-
     @commands.group()
     async def help(self, ctx):
         if ctx.invoked_subcommand is None:

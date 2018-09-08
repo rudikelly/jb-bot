@@ -1,4 +1,5 @@
 from discord.ext import commands
+import discord
 
 
 class purge():
@@ -22,6 +23,14 @@ class purge():
                 await message.delete()
         else:
             await ctx.send('Too many messages to delete. Enter a number < 10000')
+
+    @purge.error
+    async def purge_error_handler(self, ctx, error):
+        if isinstance(error, discord.Forbidden):
+            await ctx.send("I don't have permission to do that!")
+        else:
+            await ctx.send("Usage:")
+            await ctx.send("`$purge [number of messages]`")
 
 
 def setup(bot):

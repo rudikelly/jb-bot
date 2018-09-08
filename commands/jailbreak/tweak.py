@@ -23,12 +23,6 @@ class tweak():
     def __init__(self, bot):
         self.bot = bot
 
-    # async def __error(self, ctx, error):
-    #     await ctx.send("Usage:")
-    #     await ctx.send("``$tweak [tweak]``")
-    #     print("$tweak errored:")
-    #     print(error)
-
     @commands.command(aliases=['tweakinfo', 'theme'], usage='[tweak]')
     async def tweak(self, ctx, *, query: str):
 

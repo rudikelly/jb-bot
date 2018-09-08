@@ -7,12 +7,6 @@ class zalgo():
     def __init__(self, bot):
         self.bot = bot
 
-    async def __error(self, ctx, error):
-        await ctx.send("Usage:")
-        await ctx.send("``$zalgo [text]``")
-        print("$zalgo errored:")
-        print(error)
-
     @commands.command(aliases=['zalgothis', 'z'])
     async def zalgo(self, ctx, *, words):
         zalgod = ""

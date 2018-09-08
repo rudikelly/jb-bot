@@ -11,12 +11,6 @@ class xkcd():
     def __init__(self, bot):
         self.bot = bot
 
-    async def __error(self, ctx, error):
-        await ctx.send("Usage:")
-        await ctx.send("``$xkcd [number]``")
-        print("$xkcd errored:")
-        print(error)
-
     @commands.command()
     async def xkcd(self, ctx, arg: str = ''):
 
