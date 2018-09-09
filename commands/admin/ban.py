@@ -16,11 +16,8 @@ class ban():
     @commands.has_permissions(ban_members=True)
     @commands.command()
     async def ban(self, ctx, user: discord.Member):
-        try:
-            await ctx.guild.ban(user)
-            await ctx.send("Banned " + user)
-        except discord.errors.Forbidden:
-            await ctx.send("I don't have permission to do that :(")
+        await ctx.guild.ban(user)
+        await ctx.send("Banned " + user)
 
     @ban.error
     async def ban_error_handler(self, ctx, error):

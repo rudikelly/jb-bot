@@ -16,11 +16,8 @@ class kick():
     @commands.has_permissions(kick_members=True)
     @commands.command()
     async def kick(self, ctx, user: discord.Member):
-        try:
-            await ctx.guild.kick(user)
-            await ctx.send("Kicked " + user)
-        except discord.errors.Forbidden:
-            await ctx.send("I don't have permission to do that :(")
+        await ctx.guild.kick(user)
+        await ctx.send("Kicked " + user)
 
     @kick.error
     async def kick_error_handler(self, ctx, error):
