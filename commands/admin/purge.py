@@ -27,7 +27,7 @@ class purge():
     @purge.error
     async def purge_error_handler(self, ctx, error):
         if isinstance(error, discord.Forbidden):
-            await ctx.send("I don't have permission to do that!")
+            await ctx.send("I don't have permission to delete messages!")
         else:
             await ctx.send("Usage:")
             await ctx.send("`$purge [number of messages]`")

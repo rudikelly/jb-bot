@@ -22,7 +22,7 @@ class ban():
     @ban.error
     async def ban_error_handler(self, ctx, error):
         if isinstance(error, discord.Forbidden):
-            await ctx.send("I don't have permission to do that!")
+            await ctx.send("I don't have permission to ban users!")
         else:
             await ctx.send("Usage:")
             await ctx.send("`$ban @user`")

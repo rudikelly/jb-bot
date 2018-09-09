@@ -22,7 +22,7 @@ class kick():
     @kick.error
     async def kick_error_handler(self, ctx, error):
         if isinstance(error, discord.Forbidden):
-            await ctx.send("I don't have permission to do that!")
+            await ctx.send("I don't have permission to kick users!")
         else:
             await ctx.send("Usage:")
             await ctx.send("`$kick @user`")
